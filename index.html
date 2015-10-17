@@ -1,0 +1,76 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="boilerplate"> <!--<![endif]-->
+<!--
+@license
+Copyright (c) 2015 andreasonny83. All rights reserved.
+-->
+	<head>
+			<meta charset="utf-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<title>title</title>
+			<meta name="description" content="descrition">
+			<meta name="HandheldFriendly" content="True">
+			<meta name="MobileOptimized" content="320">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+			<!--[if IE]>
+					<link rel="shortcut icon" href="favicon.ico">
+			<![endif]-->
+			<meta name="msapplication-TileColor" content="#72AD07">
+			<!-- build:css css/style.min.css -->
+			<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+			<link rel="stylesheet" type="text/css" href="styles/style.css">
+			<!-- endbuild -->
+			<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300' rel='stylesheet' type='text/css'>
+	</head>
+	<body>
+		<!--[if lt IE 8]>
+				<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/?locale=en">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+
+		<main-nav></main-nav>
+
+		<div class="jumbotron hero">
+			<div class="container">
+				<h1>Title</h1>
+				<p>Some description here.</p>
+			</div>
+		</div>
+
+		<div ng-controller="MainController"></div>
+
+		<home-view></home-view>
+
+	</body>
+
+	<!-- build:nonangularlibs js/nonangularlibs.js -->
+	<script type="text/javascript" src="js/nonangular/jquery-1.11.2.min.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:libs js/libs.js -->
+	<script type="text/javascript" src="js/scripts.js"></script>
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:angularlibs js/angularlibs.js -->
+	<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:appcomponents js/appcomponents.js -->
+	<script type="text/javascript" src="app/app.js"></script>
+	<script type="text/javascript" src="components/directives/main.nav.directive.js"></script>
+	<script type="text/javascript" src="components/directives/responsive.nav.directive.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:mainapp js/mainapp.js -->
+	<script type="text/javascript" src="app/factory.js"></script>
+	<script type="text/javascript" src="app/controller.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:templates -->
+	<!-- endbuild -->
+
+</html>

@@ -1,0 +1,19 @@
+{
+  "passfail": true,
+  "maxerr": 100,
+  "quotmark": "single",
+  "camelcase": true,
+  "curly": true,
+  "white": false,
+  "indent": 2,
+  "globalstrict": false,
+
+  // Environments
+  "browser": true,
+  "jquery": false,
+
+  "globals": {},
+  "predef": [
+    "require"
+  ]
+}

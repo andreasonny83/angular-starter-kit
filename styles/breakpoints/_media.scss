@@ -1,0 +1,251 @@
+/**
+ * @license
+ * Copyright (c) 2015 andreasonny83. All rights reserved.
+ *
+ * media queries
+ */
+body {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	background-color: $gray;
+	font-size: 100%;
+	line-height: 1.5;
+}
+
+html {
+	height: 100%;
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+/*********************
+LAYOUT & GRID STYLES
+*********************/
+
+.wrap {
+	width: 96%;
+	margin: 0 auto;
+}
+
+/*********************
+LINK STYLES
+*********************/
+
+a, a:visited {
+	text-decoration: none;
+
+	/* on hover */
+	&:hover, &:focus {
+		color: $link-hover;
+		text-decoration: underline;
+	}
+
+	/* on click */
+	&:active {
+
+	}
+
+	/* mobile tap color */
+	&:link {
+		/*
+		this highlights links on iPhones/iPads.
+		so it basically works like the :hover selector
+		for mobile devices.
+		*/
+		-webkit-tap-highlight-color : rgba( 0, 0, 0, 0.3 );
+	}
+}
+
+/******************************************************************
+H1, H2, H3, H4, H5 STYLES
+******************************************************************/
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
+	text-rendering: optimizelegibility;
+	font-weight: 500;
+
+	a {
+		text-decoration: none;
+	}
+}
+
+h1, .h1 {
+	font-size: 2.5em;
+	line-height: 1.333em;
+}
+
+h2, .h2 {
+	font-size: 1.75em;
+	line-height: 1.4em;
+	margin-bottom: 0.375em;
+}
+
+h3, .h3 {
+	font-size: 1.75rem;
+}
+
+h4, .h4 {
+	font-size: 0.875rem;
+	font-weight: 700;
+}
+
+/*********************
+HEADER STYLES
+*********************/
+
+.header {
+	background-color: $white;
+}
+
+#inner-header {
+	width: 100%;
+	padding: 0 50px;
+	text-align: center;
+
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	li {
+		display: inline-block;
+		margin-right: 50px;
+		line-height: 50px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}
+
+#logo {
+	margin: 0.75em 0;
+	display: none;
+
+	a {
+		color: $white;
+	}
+}
+
+/*********************
+NAVIGATION STYLES
+*********************/
+
+.main-nav {
+	border-bottom: 0;
+	margin: 0;
+	display: none;
+
+	li {
+
+		a {
+			display: block;
+			color: $white;
+			text-decoration: none;
+			padding: 0.75em;
+		}
+	}
+}
+
+
+/*********************
+RESPONSIVE NAV
+*********************/
+
+.hamburger {
+
+	&:hover,
+	&:focus {
+		text-decoration: none;
+	}
+
+	&:before {
+		content:'\2261';
+		font-size: 24px;
+		font-weight: bold;
+		color: #555;
+	}
+}
+
+.responsive-wrapper {
+
+	display: none;
+
+	a {
+		display: block;
+		width: 100%;
+		line-height: 2;
+		text-align: center;
+		background: #fff;
+	}
+}
+
+/*********************
+MAIN PAGE
+*********************/
+
+#content {
+	margin-top: 1.5em;
+}
+
+// slider
+.slider {
+	margin-bottom: 30px;
+}
+
+.image-slider {
+	max-height: 400px;
+
+	img {
+		width: 100%;
+	}
+}
+
+/*********************
+FOOTER STYLES
+*********************/
+
+.footer {
+	clear: both;
+	background-color: $black;
+	color: $light-gray;
+}
+
+/*********************
+MOBILE
+*********************/
+
+@media only screen and (min-width: 481px) {
+
+}
+
+/*********************
+TABLET & SMALLER LAPTOPS
+*********************/
+@media only screen and (min-width: 768px) {
+
+}
+
+/*********************
+DESKTOP
+*********************/
+@media only screen and (min-width: 1030px) {
+
+}
+
+/*********************
+LARGE VIEWING SIZE
+*********************/
+@media only screen and (min-width: 1240px) {
+
+}
