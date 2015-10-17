@@ -46,6 +46,13 @@ gulp server
 gulp server-build
 ```
 
+## 6. Deploy to remote using FTP
+```bash
+gulp deploy --user username --password password
+replace ``username`` and ``password`` according to your remote ftp information
+change the variable ``remoteHost`` inside the gulpfile.js according to your remote url
+```
+
 
 ## Changelog
 ### 1.0.0
