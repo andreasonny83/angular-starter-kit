@@ -1,18 +1,22 @@
-/**
- * @license
- * Copyright (c) 2015 andreasonny83. All rights reserved.
- */
+/******************************************************************
+
+Variables
+
+******************************************************************/
+
 $black:             #231f20;
 $white:             #fff;
 
 $light-gray:        #f8f9fa;
 $gray:              #eaedf2;
+$text-color:        #5c6b80;
 
 $link-color:        $black;
 $link-hover:        darken($link-color, 9%);
 
 $border-color:      #ccc;
 $disabled-gray:     #cfcfcf;
-$alert-red:			    red;
-$alert-green:       #645564;
-$alert-blue:		    blue;
+
+$primary-color-0:   #00FF5E;
+$primary-color-1:   #00B158;
+$primary-color-2:   #6CDCA4;

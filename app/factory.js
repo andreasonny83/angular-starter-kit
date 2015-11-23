@@ -9,7 +9,7 @@
    *
    */
   angular
-    .module('boilerplate')
+    .module('app')
     .factory('getDataFromAPI', getDataFromAPI);
 
   getDataFromAPI.$inject = ['$http'];

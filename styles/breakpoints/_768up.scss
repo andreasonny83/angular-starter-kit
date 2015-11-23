@@ -1,0 +1,49 @@
+/******************************************************************
+
+768px and up
+
+******************************************************************/
+
+/*********************
+HEADER
+*********************/
+
+.page-header-sub {
+  h2 {
+    text-align: left;
+
+    &.home {
+      text-align: center;
+    }
+  }
+}
+
+/*********************
+PLAYLIST
+*********************/
+
+.playlist {
+  ul {
+    li {
+      .title, .description {
+        float: right;
+        width: 50%;
+      }
+
+      a {
+        text-align: left;
+      }
+
+      .title a {
+        display: inline-block;
+        margin: 0;
+      }
+
+      .published, .description {
+        margin-left: 0;
+        padding-left: 0;
+      }
+
+    }
+  }
+}

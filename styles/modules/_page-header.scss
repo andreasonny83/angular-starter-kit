@@ -1,0 +1,43 @@
+.page-header-sub {
+  background-color: $white;
+  margin-bottom: 40px;
+  padding: 0 0 15px 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+
+  .btn-back {
+    margin: 25px 0 0;
+    float: left;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    color: rgba(255,255,255,.85);
+    background-color: $primary-color-1;
+    border-radius: 3px;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 0 6px;
+    line-height: 40px;
+    min-height: 40px;
+    min-width: 88px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    overflow: hidden;
+    border: none;
+    transition: box-shadow .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1);
+
+    &:active {
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,.4);
+      background-color: $primary-color-2;
+      color: rgba(255,255,255,.85);
+    }
+  }
+
+  h2 {
+    margin: 0;
+    padding: 20px 0 0;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+  }
+}

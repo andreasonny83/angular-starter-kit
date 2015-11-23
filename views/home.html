@@ -1,25 +1,18 @@
-<h2 class="text-center">AngularJS Boilerplate</h2>
-
-<div class="container">
-  <img src="http://lorempixel.com/1200/600/" alt="Image">
+<div class="page-header-sub">
+  <h2 class="home">My YouTube playlist</h2>
 </div>
 
-<div class="container">
-  <h3>Features</h3>
-  <div>
-    <ul>
-      <li>* SASS support including sourceMaps</li>
-      <li>* Minimal CSS styling of the view</li>
-      <li>* Gulp watch, build and local server tasks</li>
-      <li>* Responsive navigation</li>
-      <li>* Owl slider directive</li>
-      <li>* Responsive navigation</li>
-      <li>* localStorage service for set, get, remove data</li>
-      <li>* queryService $http wrapper to handle calls</li>
-      <li>* clear folder structure</li>
-      <li>* less than 10 request in build version</li>
-      <li>* minified CSS and JS build files</li>
-      <li>* google analytics snippet</li>
-    </ul>
-  </div>
+<div class="container playlist">
+  <ul class="row">
+    <li ng-repeat="(key, video) in data">
+      <div class="title">
+        <a href="/#/video/{{key}}">{{video.snippet.title}}</a>
+        <p class="published">Published on {{video.snippet.publishedAt | date}}</p>
+      </div>
+      <a href="/#/video/{{key}}">
+        <img ng-src="{{imageResponsive(video.snippet.thumbnails)}}" alt="{{video.snippet.description}}" class="col-xs-12 col-sm-6" />
+      </a>
+      <p class="col-xs-12 col-sm-6 description">{{video.snippet.description}}</p>
+    </li>
+  </ul>
 </div>

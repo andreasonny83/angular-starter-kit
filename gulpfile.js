@@ -2,19 +2,17 @@
  * @author  SonnY <andreasonny83@gmail.com>
  * @license MIT
  */
-var gulp            = require('gulp'),
-    $               = require('gulp-load-plugins')(),
-    del             = require('del'),
-    runSequence     = require('run-sequence'),
-    browserSync     = require('browser-sync'),
-    reload          = browserSync.reload,
-    ftp             = require('vinyl-ftp'),
-    minimist        = require('minimist'),
-    gutil           = require('gulp-util');
-
-var args       = minimist(process.argv.slice(2));
-var remoteHost = 'remotehost.com';
-var remotePath = '/public_html/test/';
+var gulp        = require('gulp'),
+    browserSync = require('browser-sync'),
+    reload      = browserSync.reload,
+    $           = require('gulp-load-plugins')(),
+    del         = require('del'),
+    runSequence = require('run-sequence'),
+    ftp         = require('vinyl-ftp'),
+    minimist    = require('minimist'),
+    gutil       = require('gulp-util'),
+    Server      = require('karma').Server,
+    args        = minimist(process.argv.slice(2));
 
 // optimize images
 gulp.task('images', function() {
@@ -35,13 +33,6 @@ gulp.task('browser-sync', function() {
       baseDir: "./"
     }
   });
-});
-
-// minify JS
-gulp.task('minify-js', function() {
-  gulp.src('js/*.js')
-    .pipe($.uglify())
-    .pipe(gulp.dest('./_build/'));
 });
 
 // minify CSS
@@ -68,7 +59,9 @@ gulp.task('minify-html', function() {
 
 // copy fonts from a module outside of our project (like Bower)
 gulp.task('fonts', function() {
-  gulp.src('./fonts/**/*.{ttf,woff,eof,eot,svg}')
+  gulp.src([
+    './bower_components/bootstrap/dist/fonts/**/*.{ttf,woff,woff2,eof,eot,svg}'
+  ])
     .pipe($.changed('./_build/fonts'))
     .pipe(gulp.dest('./_build/fonts'));
 });
@@ -92,17 +85,10 @@ gulp.task('server-build', function(done) {
 });
 
 // delete build folder
-gulp.task('clean:build', function (cb) {
+gulp.task('clean:build', function () {
   del([
     './_build/'
-  ], cb);
-});
-
-// concat files
-gulp.task('concat', function() {
-  gulp.src('./js/*.js')
-    .pipe($.concat('scripts.js'))
-    .pipe(gulp.dest('./_build/'));
+  ]);
 });
 
 // SASS task, will run when any SCSS files change & BrowserSync
@@ -110,9 +96,7 @@ gulp.task('concat', function() {
 gulp.task('sass', function() {
   return gulp.src('styles/style.scss')
     .pipe($.sourcemaps.init())
-    .pipe($.sass({
-      style: 'expanded'
-    }))
+    .pipe($.sass({ style: 'expanded', errLogToConsole: true }))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest('styles'))
     .pipe(reload({
@@ -129,9 +113,15 @@ gulp.task('sass:build', function() {
     .pipe($.sass({
       style: 'compact'
     }))
-    .pipe($.autoprefixer('last 3 version'))
+    .pipe($.autoprefixer('last 2 versions',
+      'safari 6',
+      'ie 9',
+      'opera 12.1',
+      'ios 6',
+      'android 4'
+    ))
     .pipe($.uncss({
-      html: ['./index.html', './views/**/*.html', './components/**/*.html'],
+      html: ['./index.html'],
       ignore: [
         '.index',
         '.slick'
@@ -149,15 +139,16 @@ gulp.task('sass:build', function() {
 // index.html build
 // script/css concatenation
 gulp.task('usemin', function() {
+  var baseUrl = args.base_url ? args.base_url : '/';
+
   return gulp.src('./index.html')
     // add templates path
     .pipe($.htmlReplace({
-      'templates': '<script type="text/javascript" src="js/templates.js"></script>'
+        'templates': '<script type="text/javascript" src="js/templates.js"></script>',
+        'base_url': '<base href="' + baseUrl + '">'
     }))
     .pipe($.usemin({
-      css: [$.minifyCss(), 'concat'],
-      libs: [$.uglify()],
-      nonangularlibs: [$.uglify()],
+      css: [$.minifyCss()],
       angularlibs: [$.uglify()],
       appcomponents: [$.uglify()],
       mainapp: [$.uglify()]
@@ -175,7 +166,7 @@ gulp.task('templates', function() {
     ])
     .pipe($.minifyHtml())
     .pipe($.angularTemplatecache({
-      module: 'boilerplate'
+      module: 'app'
     }))
     .pipe(gulp.dest('_build/js'));
 });
@@ -201,14 +192,9 @@ gulp.task('default', ['browser-sync', 'sass', 'minify-css'], function() {
 
 
 /**
- * build task:
- * 1. clean /_build folder
- * 2. compile SASS files, minify and uncss compiled css
- * 3. copy and minimize images
- * 4. minify and copy all HTML files into $templateCache
- * 5. build index.html
- * 6. minify and copy all JS files
- * 7. copy fonts
+ * build task
+ *
+ * gulp build
  */
 gulp.task('build', function(callback) {
   runSequence(
@@ -221,7 +207,14 @@ gulp.task('build', function(callback) {
     callback);
 });
 
-// gulp deploy --user username --password password
+/**
+ * Deploy to Live
+ *
+ * use with the followinf syntax:
+ * gulp deploy --remote www.app.com --remote_path /public_html/beyond/ --base_url / --user username --password password
+ *
+ * where username and password are the ftp credentials
+ */
 gulp.task('deploy', function(callback) {
   runSequence(
     'clean:build',
@@ -234,27 +227,48 @@ gulp.task('deploy', function(callback) {
     callback);
 });
 
-gulp.task('send', function( cb ) {
-  var conn = ftp.create({
-      host: remoteHost,
+gulp.task( 'send', function( cb ) {
+  var remotePath = args.remote_path,
+      conn = ftp.create({
+      host: args.remote,
       user: args.user,
       password: args.password,
-      parallel: 10,
-      debug: true,
       log: gutil.log
+      // parallel: 25,
+      // debug: true,
+      // idleTimeout: 200,
+      // maxConnections: 30,
+      // reload: true,
     });
 
   var globs = [
       '_build/**/*'
     ];
 
-    conn.rmdir( remotePath, function ( err ) {
-      if ( err ) {
-        // If the remote directory doesn't exisits, do nothing and continue with the upload
-        // return cb( err );
-      }
-      gulp.src(globs, { base: './_build', buffer: false } )
-        .pipe( conn.newer( remotePath ) )
-        .pipe( conn.dest( remotePath ) );
-    });
+    return gulp.src( globs, {base: './_build/', buffer: false } )
+      .pipe( conn.differentSize( remotePath ) )
+      // .pipe( conn.newer( remotePath ) )
+      .pipe( conn.dest( remotePath ) );
+  //
+  //   conn.rmdir( remotePath, function ( err ) {
+  //     if ( err ) {
+  //       // If the remote directory doesn't exisits, do nothing and continue with the upload
+  //       // return cb( err );
+  //     }
+  //     gulp.src(globs, { base: './dist/', buffer: false } )
+  //       .pipe( conn.newer( remotePath ) )
+  //       .pipe( conn.dest( remotePath ) );
+  // });
+  //
+});
+
+
+/**
+ * Run test once and exit
+ */
+gulp.task( 'test', function (done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });

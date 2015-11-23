@@ -1,0 +1,15 @@
+.footer {
+  background-color: $black;
+  margin-top: 30px;
+  padding: 5px 0;
+  text-align: center;
+  color: #f00;
+
+  p {
+    color: #999;
+
+    a {
+      color: $primary-color-1;
+    }
+  }
+}
