@@ -9,7 +9,7 @@
     // Definition of directive
     return {
       restrict: 'E',
-      templateUrl: 'components/directives/page-header.html'
+      templateUrl: 'components/directives/page-header/page-header.html'
     }
   }
 

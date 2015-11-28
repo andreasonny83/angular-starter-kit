@@ -39,7 +39,7 @@ Copyright (c) 2015 andreasonny83. All rights reserved.
 				<link rel="shortcut icon" href="favicon.ico">
 		<![endif]-->
 		<!-- build:css css/style.min.css -->
-		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="styles/style.css">
 		<!-- endbuild -->
 	</head>
@@ -53,39 +53,32 @@ Copyright (c) 2015 andreasonny83. All rights reserved.
 		<!-- Main view for templates -->
 		<div ng-view class="page">Loading...</div>
 
-		<!-- build:nonangularlibs js/nonangularlibs.js -->
-		<script type="text/javascript" src="js/nonangular/jquery-1.11.2.min.js"></script>
-		<!-- endbuild -->
-
 		<!-- build:libs js/libs.js -->
-		<script type="text/javascript" src="js/scripts.js"></script>
-		<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<!-- endbuild -->
 
 		<!-- build:angularlibs js/angularlibs.js -->
-		<script type="text/javascript" src="bower_components/angular/angular.js"></script>
-		<script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
-		<script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
-		<script type="text/javascript" src="bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js"></script>
+		<script type="text/javascript" src="./bower_components/angular/angular.js"></script>
+		<script type="text/javascript" src="./bower_components/angular-route/angular-route.js"></script>
+		<script type="text/javascript" src="./bower_components/angular-animate/angular-animate.min.js"></script>
 		<!-- endbuild -->
 
 		<!-- build:appcomponents js/appcomponents.js -->
-		<script type="text/javascript" src="app/app.js"></script>
-		<script type="text/javascript" src="app/config.js"></script>
-		<script type="text/javascript" src="components/directives/page_header.directive.js"></script>
-		<script type="text/javascript" src="components/directives/responsive.nav.directive.js"></script>
+		<script type="text/javascript" src="./app/app.js"></script>
+		<script type="text/javascript" src="./app/config.js"></script>
+		<script type="text/javascript" src="./components/directives/page-header/page-header.directive.js"></script>
 		<!-- endbuild -->
 
 		<!-- build:mainapp js/mainapp.js -->
-		<script type="text/javascript" src="app/factory.js"></script>
-		<script type="text/javascript" src="app/controllers.js"></script>
+		<script type="text/javascript" src="./app/factory.js"></script>
+		<script type="text/javascript" src="./app/controllers.js"></script>
 		<!-- endbuild -->
 
 		<!-- templates from $templateCache -->
 		<!-- build:templates -->
 		<!-- endbuild -->
 
-		<script src="//www.youtube.com/iframe_api"></script>
 		<script>
 		// remove the no-js class if JavaScript is enabled
 		if ( document.documentElement.classList.contains( 'no-js' ) ) {

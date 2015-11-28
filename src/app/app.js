@@ -10,14 +10,13 @@
   angular
     .module( 'app', [
       'ngRoute',
-      'ngAnimate',
-      'youtube-embed'
+      'ngAnimate'
     ])
     .config( config );
 
   // safe dependency injection
   // this prevents minification issues
-  config.$inject = ['$routeProvider', '$locationProvider'];
+  config.$inject = ['$routeProvider'];
 
   /**
    * App routing
@@ -26,9 +25,7 @@
    * into separate file
    *
    */
-  function config( $routeProvider, $locationProvider ) {
-
-    $locationProvider.html5Mode( false );
+  function config( $routeProvider ) {
 
     // routes
     $routeProvider

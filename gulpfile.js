@@ -16,7 +16,7 @@ var gulp        = require('gulp'),
 
 // optimize images
 gulp.task('images', function() {
-  return gulp.src('./images/**/*')
+  return gulp.src('./src/images/**/*')
     .pipe($.changed('./_build/images'))
     .pipe($.imagemin({
       optimizationLevel: 3,
@@ -30,17 +30,17 @@ gulp.task('images', function() {
 gulp.task('browser-sync', function() {
   browserSync({
     server: {
-      baseDir: "./"
+      baseDir: "./src/"
     }
   });
 });
 
 // minify CSS
 gulp.task('minify-css', function() {
-  gulp.src(['./styles/**/*.css', '!./styles/**/*.min.css'])
+  gulp.src(['./src/styles/**/*.css', '!./src/styles/**/*.min.css'])
     .pipe($.rename({suffix: '.min'}))
     .pipe($.minifyCss({keepBreaks:true}))
-    .pipe(gulp.dest('./styles/'))
+    .pipe(gulp.dest('./src/styles/'))
     .pipe(gulp.dest('./_build/css/'));
 });
 
@@ -52,7 +52,7 @@ gulp.task('minify-html', function() {
     conditionals: true
   };
 
-  gulp.src('./*.html')
+  gulp.src('./src/*.html')
     .pipe($.minifyHtml(opts))
     .pipe(gulp.dest('./_build/'));
 });
@@ -60,7 +60,7 @@ gulp.task('minify-html', function() {
 // copy fonts from a module outside of our project (like Bower)
 gulp.task('fonts', function() {
   gulp.src([
-    './bower_components/bootstrap/dist/fonts/**/*.{ttf,woff,woff2,eof,eot,svg}'
+    './src/bower_components/bootstrap/dist/fonts/**/*.{ttf,woff,woff2,eof,eot,svg}'
   ])
     .pipe($.changed('./_build/fonts'))
     .pipe(gulp.dest('./_build/fonts'));
@@ -70,7 +70,7 @@ gulp.task('fonts', function() {
 gulp.task('server', function(done) {
   return browserSync({
     server: {
-      baseDir: './'
+      baseDir: './src/'
     }
   }, done);
 });
@@ -94,11 +94,11 @@ gulp.task('clean:build', function () {
 // SASS task, will run when any SCSS files change & BrowserSync
 // will auto-update browsers
 gulp.task('sass', function() {
-  return gulp.src('styles/style.scss')
+  return gulp.src('./src/styles/style.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({ style: 'expanded', errLogToConsole: true }))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('styles'))
+    .pipe(gulp.dest('./src/styles'))
     .pipe(reload({
       stream: true
     }))
@@ -109,7 +109,7 @@ gulp.task('sass', function() {
 
 // SASS Build task
 gulp.task('sass:build', function() {
-  return gulp.src('styles/style.scss')
+  return gulp.src('./src/styles/style.scss')
     .pipe($.sass({
       style: 'compact'
     }))
@@ -121,7 +121,7 @@ gulp.task('sass:build', function() {
       'android 4'
     ))
     .pipe($.uncss({
-      html: ['./index.html'],
+      html: ['./src/index.html'],
       ignore: [
         '.index',
         '.slick'
@@ -141,7 +141,7 @@ gulp.task('sass:build', function() {
 gulp.task('usemin', function() {
   var baseUrl = args.base_url ? args.base_url : '/';
 
-  return gulp.src('./index.html')
+  return gulp.src('./src/index.html')
     // add templates path
     .pipe($.htmlReplace({
         'templates': '<script type="text/javascript" src="js/templates.js"></script>',
@@ -149,6 +149,7 @@ gulp.task('usemin', function() {
     }))
     .pipe($.usemin({
       css: [$.minifyCss()],
+      libs: [$.uglify()],
       angularlibs: [$.uglify()],
       appcomponents: [$.uglify()],
       mainapp: [$.uglify()]
@@ -159,10 +160,8 @@ gulp.task('usemin', function() {
 // make templateCache from all HTML files
 gulp.task('templates', function() {
   return gulp.src([
-      './**/*.html',
-      '!bower_components/**/*.*',
-      '!node_modules/**/*.*',
-      '!_build/**/*.*'
+      './src/**/*.html',
+      '!./src/bower_components/**/*.*'
     ])
     .pipe($.minifyHtml())
     .pipe($.angularTemplatecache({
@@ -180,14 +179,14 @@ gulp.task('bs-reload', function() {
 // this default task will run BrowserSync & then use Gulp to watch files.
 // when a file is changed, an event is emitted to BrowserSync with the filepath.
 gulp.task('default', ['browser-sync', 'sass', 'minify-css'], function() {
-  gulp.watch('styles/*.css', function(file) {
+  gulp.watch('./src/styles/*.css', function(file) {
     if (file.type === "changed") {
       reload(file.path);
     }
   });
-  gulp.watch(['*.html', 'views/*.html'], ['bs-reload']);
-  gulp.watch(['app/*.js', 'components/**/*.js', 'js/*.js'], ['bs-reload']);
-  gulp.watch('styles/**/*.scss', ['sass', 'minify-css']);
+  gulp.watch(['./src/*.html', './src/views/*.html'], ['bs-reload']);
+  gulp.watch(['./src/app/*.js', './src/components/**/*.js'], ['bs-reload']);
+  gulp.watch('./src/styles/**/*.scss', ['sass', 'minify-css']);
 });
 
 
@@ -211,7 +210,7 @@ gulp.task('build', function(callback) {
  * Deploy to Live
  *
  * use with the followinf syntax:
- * gulp deploy --remote www.app.com --remote_path /public_html/beyond/ --base_url / --user username --password password
+ * gulp deploy --remote www.app.com --remote_path /public_html/angular-boilerplate/ --base_url / --user username --password password
  *
  * where username and password are the ftp credentials
  */

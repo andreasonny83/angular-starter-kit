@@ -11,20 +11,12 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
-    "test",
-    "tests"
+    "bower_components"
   ],
   "dependencies": {
     "angular": "~1.4.7",
     "angular-route": "~1.4.7",
     "angular-animate": "~1.4.7",
-    "angular-sanitize": "~1.4.7",
-    "angular-youtube-mb": "~1.1.1",
-    "psResponsive": "ps-responsive#~0.0.3",
     "bootstrap": "~3.3.5"
-  },
-  "devDependencies": {
-    "angular-mocks": "angular-mocks#~1.4.7"
   }
 }
