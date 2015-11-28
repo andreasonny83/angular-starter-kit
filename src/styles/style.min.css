@@ -7,32 +7,14 @@
 .page-header-sub .btn-back{margin:25px 0 0;float:left;box-shadow:0 2px 5px 0 rgba(0,0,0,.26);color:rgba(255,255,255,.85);background-color:#00B158;border-radius:3px;box-sizing:border-box;align-items:center;padding:0 6px;line-height:40px;min-height:40px;min-width:88px;text-align:center;text-transform:uppercase;font-weight:500;font-size:14px;cursor:pointer;overflow:hidden;border:none;transition:box-shadow .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}
 .page-header-sub .btn-back:active{box-shadow:0 4px 8px 0 rgba(0,0,0,.4);background-color:#6CDCA4;color:rgba(255,255,255,.85)}
 .page-header-sub h2{margin:0;padding:20px 0 0;line-height:40px;font-size:24px;text-align:center}
-.playlist ul{list-style-type:none;margin:0;padding:0}
-.playlist ul li{display:block;padding:10px 0;overflow:auto;background-color:rgba(255,255,255,.5);box-shadow:0 1px 2px rgba(0,0,0,.3);transition:box-shadow .2s cubic-bezier(.42,0,.58,1),background-color .4s}
-.playlist ul li:hover{background-color:#fff;box-shadow:0 2px 2px rgba(0,0,0,.2),0 5px 8px rgba(0,0,0,.3)}
-.playlist ul li+li{margin-top:30px}
-.playlist ul li p{padding:0 15px}
-.playlist ul li .title{width:100%}
-.playlist ul li .published{margin:10px 0}
-.playlist ul li .description{margin-top:15px;display:block;display:-webkit-box;max-height:122px;font-size:14px;line-height:20px;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;text-rendering:optimizeLegibility}
-.playlist ul a{display:block;color:#231f20;font-size:21px;text-decoration:none;text-align:center}
-.playlist ul a:hover{color:#00B158;transition:color .2s linear}
-.playlist ul .title a{display:table;margin:0 auto;position:relative;transition:all .3s ease}
-.playlist ul .title a::after{transition:all .3s ease;content:'';position:absolute;height:2px;width:100%;bottom:-6px;background-color:rgba(255,255,255,0);left:0}
-.playlist ul .title a:hover:after{transition:all .3s ease;background-color:#00B158;bottom:-2px}
-.footer{background-color:#231f20;margin-top:30px;padding:5px 0;text-align:center;color:red}
-.footer p{color:#999}
+.footer{background-color:#fff;margin-top:30px;padding:5px 0;text-align:center;color:red}
+.footer p{padding:0;margin:0;color:#999}
 .footer p a{color:#00B158}
 body{background-color:#eee}
 .page-header{padding:20px 0;background-color:#fff;margin:0}
 .page-header h1{color:#00B158;font-size:24px;font-weight:600;transition:font-size .2s linear}
-.page{min-height:800px}
 @media only screen and (min-width:481px){.page-header h1{font-size:36px}
 }
 @media only screen and (min-width:768px){.page-header-sub h2{text-align:left}
 .page-header-sub h2.home{text-align:center}
-.playlist ul li .description,.playlist ul li .title{float:right;width:50%}
-.playlist ul li a{text-align:left}
-.playlist ul li .title a{display:inline-block;margin:0}
-.playlist ul li .description,.playlist ul li .published{margin-left:0;padding-left:0}
 }

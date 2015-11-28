@@ -6,11 +6,11 @@
 
   function pageHeader() {
 
-    // Definition of directive
     return {
       restrict: 'E',
       templateUrl: 'components/directives/page-header/page-header.html'
     }
+
   }
 
 }());
