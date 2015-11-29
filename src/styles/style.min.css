@@ -7,7 +7,7 @@
 .page-header-sub .btn-back{margin:25px 0 0;float:left;box-shadow:0 2px 5px 0 rgba(0,0,0,.26);color:rgba(255,255,255,.85);background-color:#00B158;border-radius:3px;box-sizing:border-box;align-items:center;padding:0 6px;line-height:40px;min-height:40px;min-width:88px;text-align:center;text-transform:uppercase;font-weight:500;font-size:14px;cursor:pointer;overflow:hidden;border:none;transition:box-shadow .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}
 .page-header-sub .btn-back:active{box-shadow:0 4px 8px 0 rgba(0,0,0,.4);background-color:#6CDCA4;color:rgba(255,255,255,.85)}
 .page-header-sub h2{margin:0;padding:20px 0 0;line-height:40px;font-size:24px;text-align:center}
-.footer{background-color:#fff;margin-top:30px;padding:5px 0;text-align:center;color:red}
+.footer{background-color:#fff;margin-top:30px;padding:7px 0;text-align:center;color:red}
 .footer p{padding:0;margin:0;color:#999}
 .footer p a{color:#00B158}
 body{background-color:#eee}
