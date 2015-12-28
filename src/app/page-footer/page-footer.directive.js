@@ -8,7 +8,7 @@
 
     return {
       restrict: 'E',
-      templateUrl: './app/page-footer/page-footer.html'
+      templateUrl: 'app/page-footer/page-footer.html'
     }
 
   }

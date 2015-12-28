@@ -1,3 +1,10 @@
+page-header {
+  display: block;
+  text-align: center;
+  background-color: #AAA;
+  overflow: auto;
+}
+
 .page-header-sub {
   background-color: $white;
   margin-bottom: 40px;

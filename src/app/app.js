@@ -12,11 +12,13 @@
       'ngRoute',
       'ngAnimate'
     ])
-    .config( config );
+    .config(config)
+    .run(run);
 
   // safe dependency injection
   // this prevents minification issues
   config.$inject = ['$routeProvider'];
+  // run.$inject = [];
 
   /**
    * App routing
@@ -25,14 +27,12 @@
    * into separate file
    *
    */
-  function config( $routeProvider ) {
+  function config($routeProvider) {
 
     // routes
     $routeProvider
       .when( '/', {
-        templateUrl: 'app/home/home.html',
-        controller: 'HomeController',
-        controllerAs: 'homeCtrl'
+        templateUrl: 'app/home/home.html'
       })
       .when( '/video/:videoID', {
         templateUrl: 'app/single/single.html',
@@ -44,4 +44,7 @@
       });
   }
 
+  function run() {
+    console.log('App ready.');
+  }
 })();

@@ -153,10 +153,15 @@ gulp.task('usemin', function() {
 
 // make templateCache from all HTML files
 gulp.task('templates', function() {
-  return gulp.src('./src/app/**/*.html')
+  return gulp.src([
+    './src/app/**/*.html'
+    // './src/**/*.html',
+    // '!./src/bower_components/**/*.*'
+  ])
     .pipe($.minifyHtml())
     .pipe($.angularTemplatecache({
-      module: 'app'
+      module: 'app',
+      root: 'app'
     }))
     .pipe(gulp.dest('_build/js'));
 });
@@ -233,9 +238,9 @@ gulp.task( 'send', function( cb ) {
       '_build/**/*'
     ];
 
-    return gulp.src( globs, {base: './_build/', buffer: false } )
-      .pipe( conn.differentSize( remotePath ) )
-      // .pipe( conn.newer( remotePath ) )
+    return gulp.src( globs, {base: './_build/', buffer: true } )
+      // .pipe( conn.differentSize( remotePath ) )
+      .pipe( conn.newer( remotePath ) )
       .pipe( conn.dest( remotePath ) );
   //
   //   conn.rmdir( remotePath, function ( err ) {

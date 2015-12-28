@@ -7,8 +7,8 @@
       </a>
     </div>
     <div class="col-xs-12 col-sm-10">
-      <h2>{{data[video_pos].snippet.title}}</h2>
-      <h5>{{data[video_pos].snippet.publishedAt | date}}</h5>
+      <h2>{{mainCtrl.data[singleCtrl.video_pos].snippet.title}}</h2>
+      <h5>{{mainCtrl.data[singleCtrl.video_pos].snippet.publishedAt | date}}</h5>
     </div>
   </div>
 </div>
@@ -16,12 +16,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-md-6">
-      <div class="embed-responsive embed-responsive-16by9 video-wrapper">
-        <youtube-video class="embed-responsive-item" video-id="data[video_pos].contentDetails.videoId"></youtube-video>
-      </div>
-    </div>
-    <div class="col-xs-12 col-md-6">
-      <p class="description">{{data[video_pos].snippet.description}}</p>
+      <p class="description">{{singleCtrl.getData(mainCtrl.data[singleCtrl.video_pos])}}</p>
     </div>
   </div>
 </div>

@@ -2,17 +2,19 @@
   <h2 class="home">Angular boilerplate</h2>
 </div>
 
-<div class="container playlist">
-  <ul class="row">
-    <li ng-repeat="(key, video) in data">
-      <div class="title">
-        <a href="/#/video/{{key}}">{{video.snippet.title}}</a>
-        <p class="published">Published on {{video.snippet.publishedAt | date}}</p>
+<div class="container">
+  <ul class="playlist">
+    <li ng-repeat="(key, video) in mainCtrl.data" class="col-6">
+      <div class="box">
+        <div class="title">
+          <a href="/#/video/{{key}}">{{video.snippet.title}}</a>
+          <p class="published">Published on {{video.snippet.publishedAt | date}}</p>
+        </div>
+        <a href="/#/video/{{key}}">
+          <img ng-src="{{imageResponsive(video.snippet.thumbnails)}}" alt="{{video.snippet.description}}" class="col-xs-12 col-sm-6" />
+        </a>
+        <p class="col-xs-12 col-sm-6 description">{{video.snippet.description}}</p>
       </div>
-      <a href="/#/video/{{key}}">
-        <img ng-src="{{imageResponsive(video.snippet.thumbnails)}}" alt="{{video.snippet.description}}" class="col-xs-12 col-sm-6" />
-      </a>
-      <p class="col-xs-12 col-sm-6 description">{{video.snippet.description}}</p>
     </li>
   </ul>
 </div>

@@ -14,13 +14,9 @@
         // The youtube video id is fetched from the URL
         vm.video_pos = $routeParams.videoID;
 
-        activate();
 
-        function activate() {
-          // Autoplay video once ready
-          $scope.$on( 'youtube.player.ready', function ( $event, player ) {
-            player.playVideo();
-          });
+        vm.getData = function(data) {
+          return data.snippet.description;
         }
     }
 })();

@@ -1,5 +1,5 @@
 /**
- * HomeController
+ * MainController
  *
  */
 (function() {
@@ -7,12 +7,12 @@
 
     angular
         .module('app')
-        .controller('HomeController', HomeController);
+        .controller('MainController', MainController);
 
-    HomeController.$inject = ['CONSTANTS', '$http'];
+    MainController.$inject = ['CONSTANTS', '$http'];
 
     /* @ngInject */
-    function HomeController(CONSTANTS, $http) {
+    function MainController(CONSTANTS, $http) {
         var vm = this;
 
         vm.data = {};
