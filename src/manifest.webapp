@@ -1,0 +1,25 @@
+{
+  "version": "1.0.1",
+  "name": "Angular boilerplate",
+  "launch_path": "/index.html",
+  "description": "Angular boilerplate",
+  "icons": {
+    "128": "/images/icon-128x128.png"
+  },
+  "developer": {
+    "name": "Andrea Sonny <andreasonny83@gmail.com>",
+    "url": "https://github.com/andreasonny83"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "en",
+  "permissions": {
+  },
+  "locales": {
+    "en": {
+      "name": "Angular boilerplate",
+      "description": "Angular boilerplate"
+    }
+  }
+}

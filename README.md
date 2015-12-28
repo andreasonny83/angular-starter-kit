@@ -43,7 +43,7 @@ gulp server
 
 ## 5. Start webserver from build folder
 ```bash
-gulp server-build
+gulp server:build
 ```
 
 ## 6. Deploy to remote using FTP
@@ -55,10 +55,17 @@ change the variable ``remoteHost`` inside the gulpfile.js according to your remo
 
 
 ## Changelog
+### 1.0.1
+- Bourbon and Neat instead of Twitter Bootstrap and JQuery
+- support for web app
+- file structure improved according to the JohnPapa styleguide
+- icons
+- robots.txt
+- manifest.webapp for web app support
+- gulp file updated
+- Support for Google Analytics in index.html<br>
+28.12.2015
+
 ### 1.0.0
 - initial release<br>
 17.10.2015
-
-## Todo
-
-* add repository to package.json
