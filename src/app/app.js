@@ -12,13 +12,11 @@
       'ngRoute',
       'ngAnimate'
     ])
-    .config( config )
-    .run( run );
+    .config( config );
 
   // safe dependency injection
   // this prevents minification issues
   config.$inject = ['$routeProvider'];
-  // run.$inject = [];
 
   /**
    * App routing
@@ -44,10 +42,6 @@
       .otherwise({
         redirectTo: '/'
       });
-  }
-
-  function run() {
-    console.log('app ready.');
   }
 
 })();
