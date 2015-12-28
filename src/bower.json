@@ -1,5 +1,5 @@
 {
-  "name": "app name",
+  "name": "Angular boilerplate",
   "version": "1.0.0",
   "authors": [
     "SonnY <andreasonny83@gmail.com>"
@@ -9,15 +9,13 @@
   "license": "MIT",
   "private": false,
   "ignore": [
-    "**/.*",
-    "node_modules",
     "bower_components"
   ],
   "dependencies": {
     "angular": "~1.4.7",
     "angular-route": "~1.4.7",
     "angular-animate": "~1.4.7",
-    "bootstrap": "~3.3.5",
-    "angular-mocks": "~1.4.8"
+    "angular-mocks": "~1.4.8",
+    "normalize-css": "normalize.css#~3.0.3"
   }
 }

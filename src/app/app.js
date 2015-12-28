@@ -5,18 +5,20 @@
  * @license   MIT
  *
  */
-;(function() {
+(function() {
 
   angular
-    .module( 'app', [
+    .module('app', [
       'ngRoute',
       'ngAnimate'
     ])
-    .config( config );
+    .config( config )
+    .run( run );
 
   // safe dependency injection
   // this prevents minification issues
   config.$inject = ['$routeProvider'];
+  // run.$inject = [];
 
   /**
    * App routing
@@ -30,18 +32,22 @@
     // routes
     $routeProvider
       .when( '/', {
-        templateUrl: 'views/home.html',
+        templateUrl: 'app/home/home.html',
         controller: 'HomeController',
         controllerAs: 'homeCtrl'
       })
       .when( '/video/:videoID', {
-        templateUrl: 'views/single.html',
+        templateUrl: 'app/single/single.html',
         controller: 'SingleController',
         controllerAs: 'singleCtrl'
       })
       .otherwise({
         redirectTo: '/'
       });
+  }
+
+  function run() {
+    console.log('app ready.');
   }
 
 })();

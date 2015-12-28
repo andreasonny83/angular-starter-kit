@@ -35,15 +35,6 @@ gulp.task('browser-sync', function() {
   });
 });
 
-// minify CSS
-gulp.task('minify-css', function() {
-  gulp.src(['./src/styles/**/*.css', '!./src/styles/**/*.min.css'])
-    .pipe($.rename({suffix: '.min'}))
-    .pipe($.minifyCss({keepBreaks:true}))
-    .pipe(gulp.dest('./src/styles/'))
-    .pipe(gulp.dest('./_build/css/'));
-});
-
 // minify HTML
 gulp.task('minify-html', function() {
   var opts = {
@@ -59,9 +50,8 @@ gulp.task('minify-html', function() {
 
 // copy fonts from a module outside of our project (like Bower)
 gulp.task('fonts', function() {
-  gulp.src([
-    './src/bower_components/bootstrap/dist/fonts/**/*.{ttf,woff,woff2,eof,eot,svg}'
-  ])
+  gulp
+    .src([])
     .pipe($.changed('./_build/fonts'))
     .pipe(gulp.dest('./_build/fonts'));
 });
@@ -76,7 +66,7 @@ gulp.task('server', function(done) {
 });
 
 // start webserver from _build folder to check how it will look in production
-gulp.task('server-build', function(done) {
+gulp.task('server:build', function(done) {
   return browserSync({
     server: {
       baseDir: './_build/'
@@ -94,11 +84,14 @@ gulp.task('clean:build', function () {
 // SASS task, will run when any SCSS files change & BrowserSync
 // will auto-update browsers
 gulp.task('sass', function() {
-  return gulp.src('./src/styles/style.scss')
+  return gulp.src('./src/sass/main.scss')
     .pipe($.sourcemaps.init())
-    .pipe($.sass({ style: 'expanded', errLogToConsole: true }))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('./src/styles'))
+    .pipe($.sass({
+      outputStyle: 'expanded',
+      errLogToConsole: true
+    }))
+    .pipe($.sourcemaps.write('/'))
+    .pipe(gulp.dest('./src/css'))
     .pipe(reload({
       stream: true
     }))
@@ -109,9 +102,10 @@ gulp.task('sass', function() {
 
 // SASS Build task
 gulp.task('sass:build', function() {
-  return gulp.src('./src/styles/style.scss')
+  return gulp.src('./src/sass/main.scss')
+    .pipe($.sourcemaps.init())
     .pipe($.sass({
-      style: 'compact'
+      outputStyle: 'compact'
     }))
     .pipe($.autoprefixer('last 2 versions',
       'safari 6',
@@ -133,6 +127,7 @@ gulp.task('sass:build', function() {
       advanced: false
     }))
     .pipe($.rename({suffix: '.min'}))
+    .pipe($.sourcemaps.write('/'))
     .pipe(gulp.dest('_build/css'));
 });
 
@@ -149,7 +144,6 @@ gulp.task('usemin', function() {
     }))
     .pipe($.usemin({
       css: [$.minifyCss()],
-      libs: [$.uglify()],
       angularlibs: [$.uglify()],
       appcomponents: [$.uglify()],
       mainapp: [$.uglify()]
@@ -159,10 +153,7 @@ gulp.task('usemin', function() {
 
 // make templateCache from all HTML files
 gulp.task('templates', function() {
-  return gulp.src([
-      './src/**/*.html',
-      '!./src/bower_components/**/*.*'
-    ])
+  return gulp.src('./src/app/**/*.html')
     .pipe($.minifyHtml())
     .pipe($.angularTemplatecache({
       module: 'app'
@@ -178,15 +169,15 @@ gulp.task('bs-reload', function() {
 // default task to be run with `gulp` command
 // this default task will run BrowserSync & then use Gulp to watch files.
 // when a file is changed, an event is emitted to BrowserSync with the filepath.
-gulp.task('default', ['browser-sync', 'sass', 'minify-css'], function() {
-  gulp.watch('./src/styles/*.css', function(file) {
+gulp.task('default', ['browser-sync', 'sass'], function() {
+  gulp.watch('./src/css/*.css', function(file) {
     if (file.type === "changed") {
       reload(file.path);
     }
   });
-  gulp.watch(['./src/*.html', './src/views/*.html'], ['bs-reload']);
-  gulp.watch(['./src/app/*.js', './src/components/**/*.js'], ['bs-reload']);
-  gulp.watch('./src/styles/**/*.scss', ['sass', 'minify-css']);
+  gulp.watch(['./src/index.html', './src/app/**/*.html'], ['bs-reload']);
+  gulp.watch('./src/app/**/*.js', ['bs-reload']);
+  gulp.watch('./src/sass/**/*.scss', ['sass']);
 });
 
 
@@ -202,7 +193,6 @@ gulp.task('build', function(callback) {
     'images',
     'templates',
     'usemin',
-    'fonts',
     callback);
 });
 
@@ -221,7 +211,6 @@ gulp.task('deploy', function(callback) {
     'images',
     'templates',
     'usemin',
-    'fonts',
     'send',
     callback);
 });

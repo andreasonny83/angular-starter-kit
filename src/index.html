@@ -14,7 +14,7 @@ Copyright (c) 2015 andreasonny83. All rights reserved.
   <!-- endbuild -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>title</title>
+  <title>App name</title>
   <meta name="description" content="descrition">
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
@@ -40,12 +40,11 @@ Copyright (c) 2015 andreasonny83. All rights reserved.
   <!--[if IE]>
   <link rel="shortcut icon" href="favicon.ico">
   <![endif]-->
-  <!-- build:css css/style.min.css -->
-  <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="styles/style.css">
+  <!-- build:css css/main.min.css -->
+  <link rel="stylesheet" type="text/css" href="css/main.css">
   <!-- endbuild -->
 </head>
-<body ng-controller="MainController">
+<body ng-controller="HomeController">
   <!--[if lt IE 8]>
   <p>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/?locale=en">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
@@ -57,11 +56,6 @@ Copyright (c) 2015 andreasonny83. All rights reserved.
 
   <page-footer></page-footer>
 
-  <!-- build:libs js/libs.js -->
-  <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
-  <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <!-- endbuild -->
-
   <!-- build:angularlibs js/angularlibs.js -->
   <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
   <script type="text/javascript" src="./bower_components/angular-route/angular-route.min.js"></script>
@@ -70,14 +64,15 @@ Copyright (c) 2015 andreasonny83. All rights reserved.
 
   <!-- build:appcomponents js/appcomponents.js -->
   <script type="text/javascript" src="./app/app.js"></script>
-  <script type="text/javascript" src="./app/config.js"></script>
-  <script type="text/javascript" src="./components/directives/page-header/page-header.directive.js"></script>
-  <script type="text/javascript" src="./components/directives/page-footer/page-footer.directive.js"></script>
+  <script type="text/javascript" src="./app/config.constants.js"></script>
   <!-- endbuild -->
 
   <!-- build:mainapp js/mainapp.js -->
-  <script type="text/javascript" src="./app/factory.js"></script>
-  <script type="text/javascript" src="./app/controllers.js"></script>
+  <script type="text/javascript" src="./app/page-header/page-header.directive.js"></script>
+  <script type="text/javascript" src="./app/page-footer/page-footer.directive.js"></script>
+  <script type="text/javascript" src="./app/services/get-data-from-API.js"></script>
+  <script type="text/javascript" src="./app/home/home.controller.js"></script>
+  <script type="text/javascript" src="./app/single/single.controller.js"></script>
   <!-- endbuild -->
 
   <!-- templates from $templateCache -->
