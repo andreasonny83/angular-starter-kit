@@ -56,7 +56,7 @@ change the variable ``remoteHost`` inside the gulpfile.js according to your remo
 
 ## Changelog
 ### 1.0.1
-- Bourbon and Neat instead of Twitter Bootstrap and JQuery
+- Twitter Bootstrap and JQuery removed and implemented Bourbon with Neat
 - support for web app
 - file structure improved according to the JohnPapa styleguide
 - icons
