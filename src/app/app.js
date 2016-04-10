@@ -6,19 +6,22 @@
  *
  */
 (function() {
+  'use strict';
 
-  angular
-    .module('app', [
+  angular.module('app', [
       'ngRoute',
-      'ngAnimate'
+      'ngSanitize',
+      'ngAnimate',
+      'getData',
+      'ngMaterialToasts'
     ])
     .config(config)
     .run(run);
 
   // safe dependency injection
   // this prevents minification issues
-  config.$inject = ['$routeProvider'];
-  // run.$inject = [];
+  config.$inject = ['$routeProvider', '$locationProvider'];
+  run.$inject = ['$timeout', 'materialToast'];
 
   /**
    * App routing
@@ -27,14 +30,14 @@
    * into separate file
    *
    */
-  function config($routeProvider) {
+  function config($routeProvider, $locationProvider) {
 
     // routes
     $routeProvider
-      .when( '/', {
+      .when('/', {
         templateUrl: 'app/home/home.html'
       })
-      .when( '/video/:videoID', {
+      .when('/video/:videoID', {
         templateUrl: 'app/single/single.html',
         controller: 'SingleController',
         controllerAs: 'singleCtrl'
@@ -42,9 +45,16 @@
       .otherwise({
         redirectTo: '/'
       });
+
+    // use the HTML5 History API
+    $locationProvider.html5Mode(true);
   }
 
-  function run() {
+  function run($timeout, materialToast) {
     console.log('App ready.');
+
+    $timeout(function() {
+      materialToast.show('Welcome to AngularBoilerplate.', {timeOut: 6000});
+    }, 1000);
   }
 })();

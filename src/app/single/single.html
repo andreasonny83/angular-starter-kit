@@ -1,22 +1,21 @@
-<div class="page-header-sub">
-  <div class="container">
-    <div class="col-xs-12 col-sm-2">
-      <a type="button" href="/#/" class="btn btn-default btn-back">
-        <span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span>Back</span>
-      </a>
-    </div>
-    <div class="col-xs-12 col-sm-10">
-      <h2>{{mainCtrl.data[singleCtrl.video_pos].snippet.title}}</h2>
-      <h5>{{mainCtrl.data[singleCtrl.video_pos].snippet.publishedAt | date}}</h5>
+<main class="mdl-layout">
+  <div class="mdl-layout">
+    <a href="/" title="go back" class="mdl-cell mdl-cell--1-offset-desktop mdl-cell--4-offset-tablet mdl-cell--2-offset-phone">
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons">arrow_backward</i>
+      </button>
+    </a>
+  </div>
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--10-col">
+      <h3>{{mainCtrl.data[singleCtrl.videoPos].snippet.title}}</h3>
+      <h5>{{mainCtrl.data[singleCtrl.videoPos].snippet.publishedAt | date}}</h5>
     </div>
   </div>
-</div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-      <p class="description">{{singleCtrl.getData(mainCtrl.data[singleCtrl.video_pos])}}</p>
+  <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="youtube-player">
+    <div class="mdl-card mdl-cell mdl-cell--12-col">
+      <iframe class="youtube-player" height="350" ng-src="{{singleCtrl.videoSrc(mainCtrl.data[singleCtrl.videoPos].contentDetails.videoId)}}" allowfullscreen frameborder="0"></iframe>
+      <p class="description">{{singleCtrl.getData(mainCtrl.data[singleCtrl.videoPos])}}</p>
     </div>
-  </div>
-</div>
+  </section>

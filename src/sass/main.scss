@@ -1,11 +1,14 @@
-@import "normalize";
-@import "bourbon/bourbon";
-@import "grid-settings";
-@import "neat/neat";
-@import "partials/variables";
-@import "partials/animations";
-@import "partials/helpers";
+/******************************************************************
 
-@import "modules/page-header";
-@import "modules/page-footer";
-@import "modules/home";
+ Angular Boilderplate
+
+******************************************************************/
+
+/* Partials */
+@import "partials/variables";
+@import "partials/helpers";
+@import "partials/animations";
+
+/* Modules */
+@import "modules/main";
+@import "modules/single";

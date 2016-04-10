@@ -1,12 +1,5 @@
-.container {
-  @include outer-container;
-}
+/******************************************************************
 
-.col-6 {
-  @include span-columns(12);
+ Helpers
 
-  @include media($tablet) {
-    @include span-columns(6);
-    @include omega(2n);
-  }
-}
+******************************************************************/

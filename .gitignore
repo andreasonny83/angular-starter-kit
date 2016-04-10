@@ -1,4 +1,5 @@
 node_modules
 bower_components
-_build
+_build/
+.tmp
 npm-debug.log
