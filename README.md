@@ -1,6 +1,10 @@
 # Angular Starter Kit
 
-### Features
+> A better way to start your new Angular app
+
+[![Build Status](https://travis-ci.org/andreasonny83/angular-starter-kit.svg?branch=master)](https://travis-ci.org/andreasonny83/angular-starter-kit)
+
+## Features
 
 *   SASS support including sourceMaps
 *   Minimal CSS styling of the view
@@ -21,9 +25,10 @@ Install all `npm` and `bower` dependencies with:
 npm install && bower install
 ```
 
-##  Watch files
+## Watch files
 
-All SCSS/HTML will be watched for changes and injected into browser thanks to BrowserSync
+All SCSS/HTML will be watched for changes and injected into browser thanks
+to BrowserSync
 
 ```sh
 gulp
