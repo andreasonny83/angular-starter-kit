@@ -1,8 +1,8 @@
+[![Build Status](https://travis-ci.org/andreasonny83/angular-starter-kit.svg?branch=master)](https://travis-ci.org/andreasonny83/angular-starter-kit)
+
 # Angular Starter Kit
 
 > A better way to start your new Angular app
-
-[![Build Status](https://travis-ci.org/andreasonny83/angular-starter-kit.svg?branch=master)](https://travis-ci.org/andreasonny83/angular-starter-kit)
 
 ![Angular Logo][angular_logo]
 
