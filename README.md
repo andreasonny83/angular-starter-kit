@@ -4,6 +4,8 @@
 
 [![Build Status](https://travis-ci.org/andreasonny83/angular-starter-kit.svg?branch=master)](https://travis-ci.org/andreasonny83/angular-starter-kit)
 
+![Angular Logo][angular_logo]
+
 ## Features
 
 *   SASS support including sourceMaps
@@ -92,3 +94,5 @@ gulp server:build
 *   initial release
 
 2015.10.17
+
+[angular_logo]: https://angularjs.org/img/AngularJS-large.png
