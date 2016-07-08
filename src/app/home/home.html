@@ -1,35 +1,124 @@
-<main class="mdl-layout__content">
-  <div class="mdl-layout__tab-panel is-active" id="overview">
+<md-tabs md-dynamic-height
+          md-border-bottom
+          tabindex="-1"
+          ng-show="homeCtrl.pageReady"
+          md-selected="homeCtrl.selectedIndex">
+  <md-tab label="Step 1">
+    <md-content class="md-padding">
+      <h1 class="md-display-2 product-name">{{homeCtrl.productName}}</h1>
 
-    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" ng-repeat="(key, video) in mainCtrl.data">
-      <header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white">
-        <i class="material-icons">play_circle_filled</i>
-      </header>
-      <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-        <div class="mdl-card__supporting-text">
-          <h4>{{video.snippet.title}}</h4>
-          {{video.snippet.description}}
-        </div>
-        <div class="mdl-card__actions">
-          <a href="/video/{{key}}" class="mdl-button">Watch video</a>
-        </div>
-      </div>
-    </section>
+      <md-card>
+        <form novalidate name="form">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Angular Starter Kit
+            </span>
+            <span class="md-subhead">
+              Please fill in all the fields to continue.
+            </span>
+          </md-card-title-text>
+        </md-card-title>
 
-    <section class="section--footer mdl-color--white mdl-grid">
-      <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-        <div class="section__circle-container__circle mdl-color--accent section__circle--big"></div>
-      </div>
-      <div class="section__text mdl-cell mdl-cell--4-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-        <h5>Lorem ipsum dolor sit amet</h5>
-        Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex.
-      </div>
-      <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-        <div class="section__circle-container__circle mdl-color--accent section__circle--big"></div>
-      </div>
-      <div class="section__text mdl-cell mdl-cell--4-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-        <h5>Lorem ipsum dolor sit amet</h5>
-        Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex.
-      </div>
-    </section>
-  </div>
+        <md-card-content>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Your name*</label>
+            <input ng-model="homeCtrl.user.name" required="" tabindex="1">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Title</label>
+            <input ng-model="homeCtrl.user.title" tabindex="2">
+          </md-input-container>
+        </md-card-content>
+
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-click="homeCtrl.next(form.$valid)">
+            Next
+          </md-button>
+        </md-card-actions>
+      </form>
+      </md-card>
+    </md-content>
+  </md-tab>
+
+  <md-tab label="Step 2" ng-disabled="homeCtrl.secondLocked">
+    <md-content class="md-padding">
+      <h1 class="md-display-2 product-name">{{homeCtrl.productName}}</h1>
+
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Some content here
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content>
+          <p>
+            Some content here
+          </p>
+        </md-card-content>
+
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-click="homeCtrl.next(form.$valid)">
+            Next
+          </md-button>
+        </md-card-actions>
+      </md-card>
+    </md-content>
+  </md-tab>
+
+  <md-tab label="Step 3" ng-disabled="homeCtrl.thirdLocked">
+    <md-content class="md-padding">
+      <h1 class="md-display-2 product-name">{{homeCtrl.productName}}</h1>
+
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Some content here
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content>
+          <input-stars class="stars-big"
+                        ng-model="homeCtrl.user.rating"
+                        max="5"
+                        readonly="true">
+          </input-stars>
+
+          <h2 ng-show="homeCtrl.user.title">
+            {{homeCtrl.user.title}}
+          </h2>
+
+          <p>
+            {{homeCtrl.user.review}}
+          </p>
+
+          <md-input-container class="md-block"
+                              flex-gt-sm
+                              ng-hide="!homeCtrl.socialsSelected.length">
+            <h3 class="md-title">Share on:</h3>
+            <div ng-repeat="item in homeCtrl.socialsSelected">
+              <md-button class="md-raised md-primary"
+                         ng-click="homeCtrl.share(item)">
+                Share on {{item}}
+              </md-button>
+            </div>
+          </md-input-container>
+        </md-card-content>
+
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-click="homeCtrl.publish()"
+                     tabindex="5"
+                     ng-disabled="!form.$valid">
+            Publish
+          </md-button>
+        </md-card-actions>
+      </md-card>
+    </md-content>
+  </md-tab>
+</md-tabs>

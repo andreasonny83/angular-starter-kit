@@ -1,37 +1,32 @@
 {
-  "name": "angular-boilerplate",
-  "description": "Angular Boilerplate",
-  "version": "1.0.2",
+  "name": "angular-starter-kit",
+  "description": "Starter Kit for Angular 1.5+ projects",
+  "main": "src/index.html",
   "authors": [
     "Andrea SonnY <andreasonny83@gmail.com>"
   ],
-  "main": "_build/index.html",
-  "homepage": "https://github.com/andreasonny83/angular-boilerplate",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/andreasonny83/angular-boilerplate.git"
-  },
-  "dependencies": {
-    "angular": "^1.5.0",
-    "angular-route": "^1.5.0",
-    "angular-animate": "^1.5.0",
-    "angular-material-toasts": "~0.0.4",
-    "angular-sanitize": "^1.5.2",
-    "material-design-lite": "^1.1.3"
-  },
-  "devDependencies": {
-    "normalize-css": "^3.0.3",
-    "angular-mocks": "^1.5.0"
-  },
+  "license": "MIT",
   "keywords": [
     "angular",
-    "AngularJS",
-    "boilerplate"
+    "angularjs",
+    "starter-kit"
   ],
+  "homepage": "https://github.com/andreasonny83/angular-starter-kit",
+  "private": true,
   "ignore": [
+    "**/.*",
     "node_modules",
-    "bower_components"
+    "bower_components",
+    "test",
+    "tests"
   ],
-  "license": "MIT",
-  "private": true
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-route": "^1.5.7",
+    "angular-animate": "^1.5.7",
+    "angular-material": "^1.0.9"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.5.7"
+  }
 }

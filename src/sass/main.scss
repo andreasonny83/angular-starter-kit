@@ -6,9 +6,8 @@
 
 /* Partials */
 @import "partials/variables";
-@import "partials/helpers";
-@import "partials/animations";
 
 /* Modules */
 @import "modules/main";
-@import "modules/single";
+@import "modules/home";
+@import "modules/rating";

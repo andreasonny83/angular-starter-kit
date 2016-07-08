@@ -1,71 +1,89 @@
-# Angular-Boilerplate
+# Angular Starter Kit
 
-# Features
-* SASS support including sourceMaps
-* Minimal CSS styling of the view
-* Gulp watch, build and local server tasks
-* minified CSS and JS build files
+### Features
+
+*   SASS support including sourceMaps
+*   Minimal CSS styling of the view
+*   Gulp watch, build and local server tasks
+*   Minified CSS and JS build files
 
 ## Download
-```bash
-git clone https://github.com/andreasonny83/angular-boilerplate.git
+
+```sh
+git clone https://github.com/andreasonny83/angular-starter-kit.git
 ```
 
-## 1. Setup
-```bash
-npm install
-```
-- install all npm and bower dependencies
+## Setup
 
-## 2. Watch files
-```bash
+Install all `npm` and `bower` dependencies with:
+
+```sh
+npm install && bower install
+```
+
+##  Watch files
+
+All SCSS/HTML will be watched for changes and injected into browser thanks to BrowserSync
+
+```sh
 gulp
 ```
-- all SCSS/HTML will be watched for changes and injected into browser thanks to BrowserSync
 
-## 3. Build production version
-```bash
+## Build production version
+
+```sh
 gulp build
 ```
-- this will process following tasks:
-* clean `_build` folder
-* compile SASS files, minify and uncss compiled css
-* copy and optimize images
-* minify and copy all HTML files into $templateCache
-* build index.html
-* minify and copy all JS files
-* copy fonts
 
-## 4. Start webserver without watch task
+This will perform the following tasks:
+
+*   clean `dist` folder
+*   compile SASS files, minify and uncss compiled css
+*   copy and optimize images
+*   minify and copy all HTML files into $templateCache
+*   build index.html
+*   minify and copy all JS files
+*   copy fonts
+
+## Start webserver without watch task
+
 ```bash
 gulp server
 ```
 
-## 5. Start webserver from build folder
+## Serve the distribution folder
+
 ```bash
 gulp server:build
 ```
 
-## 6. Deploy to remote using FTP
-```bash
-gulp deploy --user username --password password
-replace ``username`` and ``password`` according to your remote ftp information
-change the variable ``remoteHost`` inside the gulpfile.js according to your remote url
-```
-
-
 ## Changelog
+
+### 1.2.0
+
+*   Replacing Material Design Lite with Angular Material
+*   Better Gulp
+*   Removing JSHint in favour of ESLint
+*   Karma improved for Unit testing
+*   General restyling and better Web Application support
+
+2016.07.08
+
 ### 1.0.1
-- Twitter Bootstrap and JQuery removed and implemented Bourbon with Neat
-- support for web app
-- file structure improved according to the JohnPapa styleguide
-- icons
-- robots.txt
-- manifest.webapp for web app support
-- gulp file updated
-- Support for Google Analytics in index.html<br>
-28.12.2015
+
+*   Twitter Bootstrap and JQuery removed and implemented Bourbon with Neat
+*   support for web app
+*   file structure improved according to the JohnPapa styleguide
+*   icons
+*   robots.txt
+*   manifest.webapp for web app support
+*   gulp file updated
+*   Support for Google Analytics in index.html
+
+2015.12.28
 
 ### 1.0.0
-- initial release<br>
-17.10.2015
+
+*   initial release
+
+2015.10.17

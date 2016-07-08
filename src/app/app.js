@@ -1,19 +1,21 @@
 /**
- * Angular boilerplate
- *
- * @author    Andrea Zornada <andreasonny83@gmail.com>
- * @license   MIT
- *
- */
+* angular-starter-kit
+*
+* @author Andrea SonnY <andreasonny83@gmail.com>
+* @copyright 2016 Andrea SonnY <andreasonny83@gmail.com>
+*
+* This code may only be used under the MIT style license.
+*
+* @license MIT  https://andreasonny.mit-license.org/@2016/
+*/
 (function() {
   'use strict';
 
-  angular.module('app', [
+  angular
+    .module('app', [
       'ngRoute',
-      'ngSanitize',
       'ngAnimate',
-      'getData',
-      'ngMaterialToasts'
+      'ngMaterial'
     ])
     .config(config)
     .run(run);
@@ -21,7 +23,7 @@
   // safe dependency injection
   // this prevents minification issues
   config.$inject = ['$routeProvider', '$locationProvider'];
-  run.$inject = ['$timeout', 'materialToast'];
+  // run.$inject = [];
 
   /**
    * App routing
@@ -31,30 +33,25 @@
    *
    */
   function config($routeProvider, $locationProvider) {
-
     // routes
     $routeProvider
       .when('/', {
-        templateUrl: 'app/home/home.html'
-      })
-      .when('/video/:videoID', {
-        templateUrl: 'app/single/single.html',
-        controller: 'SingleController',
-        controllerAs: 'singleCtrl'
+        templateUrl: 'app/home/home.html',
+        controller: 'HomeController',
+        controllerAs: 'homeCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/404'
       });
 
     // use the HTML5 History API
     $locationProvider.html5Mode(true);
   }
 
-  function run($timeout, materialToast) {
-    console.log('App ready.');
-
-    $timeout(function() {
-      materialToast.show('Welcome to AngularBoilerplate.', {timeOut: 6000});
-    }, 1000);
+  /**
+   * Run once the App is ready
+   */
+  function run() {
+    console.log('App ready!');
   }
 })();

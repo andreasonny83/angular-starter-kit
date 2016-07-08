@@ -1,102 +1,101 @@
- /**
-  * angular-boilerplate
-  *
-  * @author Andrea SonnY <andreasonny83@gmail.com>
-  * @copyright 2016 Andrea SonnY <andreasonny83@gmail.com>
-  * @version v1.0.2
-  * @license MIT http://andreasonny.mit-license.org
-  */
-
+/**
+* angular-starter-kit
+*
+* @author Andrea SonnY <andreasonny83@gmail.com>
+* @copyright 2016 Andrea SonnY <andreasonny83@gmail.com>
+*
+* This code may only be used under the MIT style license.
+*
+* @license MIT  https://andreasonny.mit-license.org/@2016/
+*/
 'use strict';
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var del = require('del');
 var runSequence = require('run-sequence');
-var openURL = require('open');
-var stylish = require('jshint-stylish');
 var wiredep = require('wiredep').stream;
 var path = require('path');
+var config = require('./gulp/config.js');
 var Server = require('karma').Server;
+var browserSync = require('browser-sync').create();
+var fallback = require('connect-history-api-fallback');
 
 var args = require('minimist')(process.argv.slice(2));
 
 // Replace '/' with your production base URL
 //
-// eg. setting baseUrl to '/subdomain/' will write your _build/index.html like this:
+// eg. setting baseUrl to '/subdomain/' will write your dist/index.html like this:
 // <head><base href="/subdomain/">...
 // The default value is set to '/'
 //
 // for more information: https://docs.angularjs.org/guide/$location
 var baseUrl = args.base || '/';
 
-var AUTOPREFIXER = [
-  'last 2 versions',
-  'safari >= 7',
-  'ie >= 9',
-  'ff >= 30',
-  'ios 6',
-  'android 4'
-];
-
-gulp.task('open', function() {
-  openURL('http://localhost:9000/');
-});
-
-gulp.task('start:server', ['open'], function() {
-  $.connect.server({
-    root: ['src', '.tmp'],
-    port: 9000,
-    livereload: true,
-    middleware: function(connect) {
-      return [connect()
-        .use('/bower_components', connect.static('bower_components'))
-      ];
+gulp.task('start:server', function() {
+  browserSync.init({
+    server: {
+      baseDir: [config.src, config.tmp],
+      routes: {
+        '/bower_components': 'bower_components'
+      },
+      middleware: [
+        fallback({
+          index: '/index.html',
+          htmlAcceptHeaders: ['text/html', 'application/xhtml+xml'] // systemjs workaround
+        })
+      ]
     }
   });
 });
 
 gulp.task('build:serve', function() {
-  openURL('http://localhost:9001/');
-
-  $.connect.server({
-    root: ['_build'],
-    port: 9001,
-    livereload: true
+  browserSync.init({
+    server: {
+      baseDir: config.dist,
+      middleware: [
+        fallback({
+          index: '/index.html',
+          htmlAcceptHeaders: ['text/html', 'application/xhtml+xml'] // systemjs workaround
+        })
+      ]
+    }
   });
 });
 
 // reload all Browsers
 gulp.task('reload', function() {
-  gulp.src('src/index.html')
-  .pipe($.connect.reload());
+  gulp
+  .src(config.src + '/index.html')
+  .pipe(browserSync.reload);
 });
 
 // optimize images
 gulp.task('images', function() {
-  return gulp.src('src/images/**/*')
-    .pipe($.changed('_build/images'))
+  return gulp
+    .src(config.src + '/images/**/*')
     .pipe($.imagemin({
       optimizationLevel: 7,
       progressive: true,
       interlaced: true
     }))
-    .pipe(gulp.dest('_build/images'))
+    .pipe(gulp.dest(config.dist + '/images'))
     .pipe($.size({title: 'images'}));
 });
 
 // copy fonts
 gulp.task('fonts', function() {
-  gulp.src(['src/fonts/**/*'])
-    .pipe(gulp.dest('_build/fonts'))
+  gulp
+    .src([config.src + '/fonts/**/*'])
+    .pipe(gulp.dest(config.dist + '/fonts'))
     .pipe($.size({title: 'fonts'}));
 });
 
 // delete build folder
 gulp.task('clean', function() {
   del([
-    '_build/',
-    '.tmp/'
+    config.tmp,
+    config.dist
   ], {
     dot: true
   });
@@ -105,99 +104,102 @@ gulp.task('clean', function() {
 // SASS task, will run when any SCSS files change & BrowserSync
 // will auto-update browsers
 gulp.task('sass', function() {
-  return gulp.src('src/sass/main.scss')
+  return gulp
+    .src(config.src + '/sass/main.scss')
     .pipe($.sass({
       outputStyle: 'expanded'
     }).on('error', $.sass.logError))
-    .pipe(gulp.dest('.tmp/styles'))
-    .pipe($.connect.reload({
-      stream: true
-    }))
-    .pipe($.notify({
-      message: 'Styles task complete'
-    }))
-    .pipe($.size({title: 'sass'}));
+    .pipe(gulp.dest(config.tmp + '/styles'))
+    .pipe($.size({title: 'sass'}))
+    .pipe(browserSync.stream());
 });
 
 // SASS Build task
 gulp.task('sass:build', function() {
-  return gulp.src('src/sass/**/*.scss')
+  return gulp
+    .src(config.src + '/sass/**/*.scss')
     // .pipe($.sourcemaps.init())
     .pipe($.sass({
       outputStyle: 'compressed'
     }).on('error', $.sass.logError))
-    // uncomment to run gulp-uncss
-    //
-    // .pipe($.uncss({
-    //   html: ['src/index.html']
-    // }))
     .pipe($.cssnano({
-      autoprefixer: {browsers: AUTOPREFIXER, add: true},
+      autoprefixer: {browsers: config.autoprefixer, add: true},
       safe: true
     }))
     // .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest('.tmp/styles'))
+    .pipe(gulp.dest(config.tmp + '/styles'))
     .pipe($.size({title: 'sass'}));
 });
 
 gulp.task('scripts', function() {
-  return gulp.src([
-    'src/app/**/*.js',
-    '!**/test/**/*'
-  ]).pipe($.jshint())
-    .pipe($.jshint.reporter(stylish))
-    .pipe($.connect.reload());
+  return gulp
+    .src([
+      config.src + '/app/**/*.js',
+      '!**/test/**/*'
+    ]);
 });
 
 // Move all script files in the .temp is required by usemin
 // in order to find all the source scripts in one place
 gulp.task('copy:scripts', function() {
-  gulp.src(['src/app/**/*'])
-    .pipe(gulp.dest('.tmp/app'));
+  gulp
+    .src([config.src + '/app/**/*'])
+    .pipe(gulp.dest(config.tmp + '/app'));
 });
 
-// Copy the root files from your src folder inside your _build one
+gulp.task('fonts', function() {
+  gulp
+    .src(['bower_components/font-awesome/fonts/**/*'])
+    .pipe(gulp.dest(config.dist + '/fonts'));
+});
+
+// Copy the root files from your src folder inside your dist one
 gulp.task('copy:root', function() {
-  gulp.src([
-    'src/.htaccess',
-    'src/404.html',
-    'src/browserconfig.xml',
-    'src/favicon.ico',
-    'src/manifest.json',
-    'src/manifest.webapp',
-    'src/robots.txt'
-  ], {
-    dot: true
-  }).pipe(gulp.dest('_build'))
+  gulp
+    .src([
+      config.src + '/.htaccess',
+      config.src + '/404.html',
+      config.src + '/browserconfig.xml',
+      config.src + '/favicon.ico',
+      config.src + '/manifest.json',
+      config.src + '/manifest.webapp',
+      config.src + '/robots.txt'
+    ], {
+      dot: true
+    })
+    .pipe(gulp.dest(config.dist))
     .pipe($.size({title: 'copy'}));
 });
 
 gulp.task('wiredep', function() {
-  return gulp.src('src/index.html')
+  return gulp
+  .src(config.src + '/index.html')
   .pipe(wiredep())
-  .pipe(gulp.dest('src/'));
+  .pipe(gulp.dest(config.src));
 });
 
 gulp.task('usemin', ['wiredep'], function() {
-  return gulp.src('src/index.html')
-    .pipe(gulp.dest('_build/'))
+  return gulp
+    .src(config.src + '/index.html')
+    .pipe(gulp.dest(config.dist))
     .pipe($.htmlReplace({
       baseUrl: '<base href="' + baseUrl + '">',
       templates: '<script src="app/templates.js"></script>'
     }))
-    .pipe(gulp.dest('_build/'))
+    .pipe(gulp.dest(config.dist))
     .pipe($.usemin({
       css: ['concat', $.cssnano({
-        autoprefixer: {browsers: AUTOPREFIXER, add: true}
+        autoprefixer: {browsers: config.autoprefixer, add: true}
       })],
-      main: [$.jshint(), $.jshint.reporter(stylish), $.uglify(), 'concat']
+      main: [$.uglify(), 'concat']
     }))
-    .pipe(gulp.dest('_build/'));
+    .pipe(gulp.dest(config.dist));
 });
 
 // minify HTML
 gulp.task('htmlmin', function() {
-  return gulp.src('_build/index.html')
+  return gulp
+    .src(config.dist + '/index.html')
     .pipe($.htmlmin({
       removeScriptTypeAttributes: true,
       removeStyleLinkTypeAttributes: true,
@@ -206,12 +208,13 @@ gulp.task('htmlmin', function() {
       removeTagWhitespace: true,
       collapseWhitespace: true
     }))
-    .pipe(gulp.dest('_build/'));
+    .pipe(gulp.dest(config.dist));
 });
 
 // make a templateCache module from all HTML files
 gulp.task('templates', function() {
-  return gulp.src('src/app/**/*.html')
+  return gulp
+    .src('src/app/**/*.html')
     .pipe($.htmlmin({
       collapseWhitespace: true
     }))
@@ -232,8 +235,8 @@ gulp.task('serve', ['clean'], function() {
     'sass',
     'wiredep',
     function() {
-      gulp.watch('src/**/*.html', ['reload']);
-      gulp.watch('src/app/**/*.js', ['scripts']);
+      gulp.watch('src/**/*.html').on('change', browserSync.reload);
+      gulp.watch('src/app/**/*.js').on('change', browserSync.reload);
       gulp.watch('src/sass/**/*.scss', ['sass']);
     }
   );
@@ -248,7 +251,7 @@ gulp.task('serve', ['clean'], function() {
 gulp.task('build', ['clean'], function(cb) {
   runSequence(
     ['images', 'templates', 'copy:scripts', 'copy:root'],
-    'sass:build',
+    ['sass:build', 'fonts'],
     'usemin',
     'htmlmin',
     cb
