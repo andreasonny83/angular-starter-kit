@@ -1,13 +1,6 @@
+sudo: false
 language: node_js
 node_js:
-- '0.12'
-# env:
-  # global:
-  # - secure: QCXEZFbpewv1ub4YwHrWs0pUZwbLOCmYXzBQ7aFz7IVU4PhUrflNe9t9Obz6YLvztBlXzu+82wqACdLs+pz4lfijdWk7P0OVfqr7En5wFCqPauvpDm9ktpn2PQfyKW2eWdI9Rn5fKhHdQ6n/BWR1nxkK0gUOScoOMDmtXFUxK2i/7stbCuvX/Q2XEXIafi0l8X6Z6IvpKMwEKuZ+15lJvrZRse5efDloI6ynsVFNYmRzfYsECOMYI1eAg9eUwYKc7+W4zoYquQEHIqgteYxv6eUdwv56pxeXSF5Lv+RjXYLrByrowBeNaX5si5dt9JicSg0DCXd3L44r/p9wwSzhEacDQnFDAreNvMt7w5UomY5E1vC/hTafjKOL5ruDbuAOJ+dqEi5H7sr8keCi19o4/cRx9ymxtlkAYFFv/W1SONyx/afMG2OPmyeoPGR5D+Lh2BrJ90oxuN2hF6I0jbUXJnivRSj+sNtHldtyyUX9GVMpQUq0dMHSMcq4UuAd6uJSRiFlm5vJubwUvrbkupJBEtcYzc2rUiqED4fdckvrG0ENJBVWPW9RSWO41mShnJx6ThtVcfH9s1aE0eYAeFjI4o8dYs7KPULQe8sjbeLLFvnFjn0BBIDqBEs6b7AsJTI7+qiAECeljn4PbixRCInMdC+Jmt9M/xg19bye3OVCKGk=
-  # - secure: 0dJr1kJMU8ukAZIg9I0Fi2jx1FhRR7tLyFvs1lxeRXbrzMsJWuOeVWXPmgMocMCclYXNAYLf+3s7yzBDcfERYtCzb72iDi73dM+2XfxhNjwE/0biV6Pzzb1k+s6zBvVVwze8z8V1FYn7+BFWJ6fvcyvyaOrsjHcHaVPZOSWgU82kbm6usLwNOB+a0Fmd+GHTxVVdsfyezVrSjK31TzOlDOWksxfkDQfMOwj+KggYtLahI+75IgbaIye1P+nVJNWXLgUGJXE7eB5awZj4t3322HLh1hQZFkIbaFkHYQvIgcGEEe62KrpaxqiXOPMwn210QJsmtiZW5YZSIw/yhOJczPyJbb1CojLb4PB3dK/zFDdtWmNfySCJx8K1hHatRSb5GMeDMjqDj7J87tM3TuH1TvuWOZczjcC10yRcehQ+KafxzvwGbD55BMephVW8QZ5ZOls0ef8sjP+FuKgGvfWb2f387Jt3SiBsFHAZYHcJnossOW7aInWsU6OmyIGuWtZkJkdmPFa4cIdPLaNxE368T6t7aWI+olegkVsBxmFZxC3LPho7j7hGSxODNHtikQ7xZuak+VQ5T0NqejOaaNfCexIo+7FYPPmvrN1rCOAwHUJ6cQapa8+FIONr3n6J2b7DxWUGCIUbgr3sb3jfRpfy0vsVHLENUbdyNb3DVsJOLPY=
-before_script:
-  - npm install
-  - npm install -g bower
-  - bower install
-after_success:
-  - gulp deploy --remote $PROD_HOSTNAME --remote_path $PROD_PATH --base_url $PROD_BASE_URL --user $PROD_USERNAME --password $PROD_PASSWORD
+  - iojs
+  - '0.12'
+  - '0.10'

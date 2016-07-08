@@ -1,20 +1,124 @@
-<div class="page-header-sub">
-  <h2 class="home">Angular boilerplate</h2>
-</div>
+<md-tabs md-dynamic-height
+          md-border-bottom
+          tabindex="-1"
+          ng-show="homeCtrl.pageReady"
+          md-selected="homeCtrl.selectedIndex">
+  <md-tab label="Step 1">
+    <md-content class="md-padding">
+      <h1 class="md-display-2 product-name">{{homeCtrl.productName}}</h1>
 
-<div class="container">
-  <ul class="playlist">
-    <li ng-repeat="(key, video) in mainCtrl.data" class="col-6">
-      <div class="box">
-        <div class="title">
-          <a href="/#/video/{{key}}">{{video.snippet.title}}</a>
-          <p class="published">Published on {{video.snippet.publishedAt | date}}</p>
-        </div>
-        <a href="/#/video/{{key}}">
-          <img ng-src="{{imageResponsive(video.snippet.thumbnails)}}" alt="{{video.snippet.description}}" class="col-xs-12 col-sm-6" />
-        </a>
-        <p class="col-xs-12 col-sm-6 description">{{video.snippet.description}}</p>
-      </div>
-    </li>
-  </ul>
-</div>
+      <md-card>
+        <form novalidate name="form">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Angular Starter Kit
+            </span>
+            <span class="md-subhead">
+              Please fill in all the fields to continue.
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Your name*</label>
+            <input ng-model="homeCtrl.user.name" required="" tabindex="1">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Title</label>
+            <input ng-model="homeCtrl.user.title" tabindex="2">
+          </md-input-container>
+        </md-card-content>
+
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-click="homeCtrl.next(form.$valid)">
+            Next
+          </md-button>
+        </md-card-actions>
+      </form>
+      </md-card>
+    </md-content>
+  </md-tab>
+
+  <md-tab label="Step 2" ng-disabled="homeCtrl.secondLocked">
+    <md-content class="md-padding">
+      <h1 class="md-display-2 product-name">{{homeCtrl.productName}}</h1>
+
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Some content here
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content>
+          <p>
+            Some content here
+          </p>
+        </md-card-content>
+
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-click="homeCtrl.next(form.$valid)">
+            Next
+          </md-button>
+        </md-card-actions>
+      </md-card>
+    </md-content>
+  </md-tab>
+
+  <md-tab label="Step 3" ng-disabled="homeCtrl.thirdLocked">
+    <md-content class="md-padding">
+      <h1 class="md-display-2 product-name">{{homeCtrl.productName}}</h1>
+
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">
+              Some content here
+            </span>
+          </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content>
+          <input-stars class="stars-big"
+                        ng-model="homeCtrl.user.rating"
+                        max="5"
+                        readonly="true">
+          </input-stars>
+
+          <h2 ng-show="homeCtrl.user.title">
+            {{homeCtrl.user.title}}
+          </h2>
+
+          <p>
+            {{homeCtrl.user.review}}
+          </p>
+
+          <md-input-container class="md-block"
+                              flex-gt-sm
+                              ng-hide="!homeCtrl.socialsSelected.length">
+            <h3 class="md-title">Share on:</h3>
+            <div ng-repeat="item in homeCtrl.socialsSelected">
+              <md-button class="md-raised md-primary"
+                         ng-click="homeCtrl.share(item)">
+                Share on {{item}}
+              </md-button>
+            </div>
+          </md-input-container>
+        </md-card-content>
+
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-click="homeCtrl.publish()"
+                     tabindex="5"
+                     ng-disabled="!form.$valid">
+            Publish
+          </md-button>
+        </md-card-actions>
+      </md-card>
+    </md-content>
+  </md-tab>
+</md-tabs>

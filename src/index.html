@@ -1,21 +1,30 @@
-<!DOCTYPE html>
-<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6" ng-app="app"> <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="no-js ie7" ng-app="app"> <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="no-js ie8" ng-app="app"> <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="no-js ie9" ng-app="app"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js" ng-app="app"> <!--<![endif]-->
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 <!--
-Copyright (c) 2015 andreasonny83. All rights reserved.
--->
+  angular-starter-kit
+
+  @author Andrea SonnY <andreasonny83@gmail.com>
+  @copyright 2016 Andrea SonnY <andreasonny83@gmail.com>
+
+  This code may only be used under the MIT style license.
+
+  @license MIT  https://andreasonny.mit-license.org/@2016/
+ -->
 <head>
-  <!-- build:base_url -->
-  <base href="/test.index">
+  <!-- build:baseUrl -->
+  <base href="/">
+  <!--  this will create a <base href="/your website baseUrl"> when Gulp compiles the build project -->
+
   <!-- endbuild -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="some description here">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>App name</title>
+  <meta name="description" content="Angular Starter Kit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angular Starter Kit</title>
 
   <!-- Disable tap highlight on IE -->
   <meta name="msapplication-tap-highlight" content="no">
@@ -23,40 +32,43 @@ Copyright (c) 2015 andreasonny83. All rights reserved.
   <!-- Web Application Manifest -->
   <link rel="manifest" href="manifest.json">
 
-
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="Web Starter Kit">
+  <meta name="application-name" content="Angular Starter Kit">
   <link rel="icon" sizes="192x192" href="images/chrome-touch-icon-192x192.png">
 
   <!-- Add to homescreen for Safari on iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="App title">
+  <meta name="apple-mobile-web-app-title" content="Angular Starter Kit">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
   <!-- Tile icon for Win8 (144x144 + tile color) -->
   <meta name="msapplication-TileImage" content="images/ms-touch-icon-144x144-precomposed.png">
   <meta name="msapplication-TileColor" content="#2F3BA2">
 
+  <link rel="shortcut icon" href="favicon.png">
+
   <!-- Color the status bar on mobile devices -->
   <meta name="theme-color" content="#2F3BA2">
-
-  <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
-  <!--
-  <link rel="canonical" href="http://www.example.com/">
-  -->
 
   <!--[if IE]>
   <link rel="shortcut icon" href="favicon.ico">
   <![endif]-->
 
-  <!-- build:css css/main.min.css -->
-  <link rel="stylesheet" type="text/css" href="./css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <!-- build:css(./.tmp) css/main.min.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="../bower_components/angular-material/angular-material.css" />
+    <!-- endbower -->
+    <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild -->
-  <script>document.documentElement.className = document.documentElement.className.replace("no-js","js");</script>
+
+  <script>document.documentElement.className = document.documentElement.className.replace('no-js','js');</script>
 </head>
-<body ng-controller="MainController as mainCtrl">
+
+<body>
   <!--[if lt IE 8]>
   <p>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/?locale=en">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
@@ -64,42 +76,49 @@ Copyright (c) 2015 andreasonny83. All rights reserved.
   <page-header></page-header>
 
   <!-- Main view for templates -->
-  <div ng-view class="page">Loading...</div>
+  <div ng-view class="page"></div>
 
   <page-footer></page-footer>
 
-  <!-- build:angularlibs js/angularlibs.js -->
-  <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
-  <script type="text/javascript" src="./bower_components/angular-route/angular-route.min.js"></script>
-  <script type="text/javascript" src="./bower_components/angular-animate/angular-animate.min.js"></script>
+  <!-- build:main(./.tmp) js/main.min.js -->
+    <!-- bower:js -->
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.js"></script>
+    <script src="../bower_components/angular-aria/angular-aria.js"></script>
+    <script src="../bower_components/angular-messages/angular-messages.js"></script>
+    <script src="../bower_components/angular-material/angular-material.js"></script>
+    <!-- endbower -->
+
+    <script src="app/app.js"></script>
+
+    <script src="app/page-header/page-header.directive.js"></script>
+    <script src="app/page-footer/page-footer.directive.js"></script>
+
+    <script src="app/home/home.controller.js"></script>
+
+    <!-- build:templates -->
+      <!-- minify and concatenate all template files -->
+    <!-- endbuild -->
+
   <!-- endbuild -->
 
-  <!-- build:appcomponents js/appcomponents.js -->
-  <script type="text/javascript" src="./app/app.js"></script>
-  <script type="text/javascript" src="./app/config.constants.js"></script>
-  <script type="text/javascript" src="./app/page-header/page-header.directive.js"></script>
-  <script type="text/javascript" src="./app/page-footer/page-footer.directive.js"></script>
-  <!-- endbuild -->
-
-  <!-- build:mainapp js/mainapp.js -->
-  <script type="text/javascript" src="./app/services/get-data-from-API.js"></script>
-  <script type="text/javascript" src="./app/main/main.controller.js"></script>
-  <script type="text/javascript" src="./app/single/single.controller.js"></script>
-  <!-- endbuild -->
-
-  <!-- templates from $templateCache -->
-  <!-- build:templates -->
-  <!-- endbuild -->
-
-  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID -->
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-XXXXX-X', 'auto');
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-XXXXX-Y', 'auto');
     ga('send', 'pageview');
   </script>
-  <!-- Built with love by SonnY -->
+  <!-- End Google Analytics -->
+
+  <script>
+    angular.element(document).ready(function() {
+      angular.bootstrap(document, ['app']);
+    });
+  </script>
+  <!-- Built with love by @andreasonny83 -->
 </body>
 </html>

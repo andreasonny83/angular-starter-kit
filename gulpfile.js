@@ -1,267 +1,271 @@
 /**
- * @author  SonnY <andreasonny83@gmail.com>
- * @license MIT
- */
-var gulp        = require('gulp'),
-    browserSync = require('browser-sync'),
-    reload      = browserSync.reload,
-    $           = require('gulp-load-plugins')(),
-    del         = require('del'),
-    runSequence = require('run-sequence'),
-    ftp         = require('vinyl-ftp'),
-    minimist    = require('minimist'),
-    gutil       = require('gulp-util'),
-    Server      = require('karma').Server,
-    args        = minimist(process.argv.slice(2));
+* angular-starter-kit
+*
+* @author Andrea SonnY <andreasonny83@gmail.com>
+* @copyright 2016 Andrea SonnY <andreasonny83@gmail.com>
+*
+* This code may only be used under the MIT style license.
+*
+* @license MIT  https://andreasonny.mit-license.org/@2016/
+*/
+'use strict';
 
-// optimize images
-gulp.task('images', function() {
-  return gulp.src('./src/images/**/*')
-    .pipe($.changed('./_build/images'))
-    .pipe($.imagemin({
-      optimizationLevel: 3,
-      progressive: true,
-      interlaced: true
-    }))
-    .pipe(gulp.dest('./_build/images'));
-});
+var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
+var del = require('del');
+var runSequence = require('run-sequence');
+var wiredep = require('wiredep').stream;
+var path = require('path');
+var config = require('./gulp/config.js');
+var Server = require('karma').Server;
+var browserSync = require('browser-sync').create();
+var fallback = require('connect-history-api-fallback');
 
-// browser-sync task, only cares about compiled CSS
-gulp.task('browser-sync', function() {
-  browserSync({
+var args = require('minimist')(process.argv.slice(2));
+
+// Replace '/' with your production base URL
+//
+// eg. setting baseUrl to '/subdomain/' will write your dist/index.html like this:
+// <head><base href="/subdomain/">...
+// The default value is set to '/'
+//
+// for more information: https://docs.angularjs.org/guide/$location
+var baseUrl = args.base || '/';
+
+gulp.task('start:server', function() {
+  browserSync.init({
     server: {
-      baseDir: "./src/"
+      baseDir: [config.src, config.tmp],
+      routes: {
+        '/bower_components': 'bower_components'
+      },
+      middleware: [
+        fallback({
+          index: '/index.html',
+          htmlAcceptHeaders: ['text/html', 'application/xhtml+xml'] // systemjs workaround
+        })
+      ]
     }
   });
 });
 
-// minify HTML
-gulp.task('minify-html', function() {
-  var opts = {
-    comments: true,
-    spare: true,
-    conditionals: true
-  };
-
-  gulp.src('./src/*.html')
-    .pipe($.minifyHtml(opts))
-    .pipe(gulp.dest('./_build/'));
+gulp.task('build:serve', function() {
+  browserSync.init({
+    server: {
+      baseDir: config.dist,
+      middleware: [
+        fallback({
+          index: '/index.html',
+          htmlAcceptHeaders: ['text/html', 'application/xhtml+xml'] // systemjs workaround
+        })
+      ]
+    }
+  });
 });
 
-// copy fonts from a module outside of our project (like Bower)
+// reload all Browsers
+gulp.task('reload', function() {
+  gulp
+  .src(config.src + '/index.html')
+  .pipe(browserSync.reload);
+});
+
+// optimize images
+gulp.task('images', function() {
+  return gulp
+    .src(config.src + '/images/**/*')
+    .pipe($.imagemin({
+      optimizationLevel: 7,
+      progressive: true,
+      interlaced: true
+    }))
+    .pipe(gulp.dest(config.dist + '/images'))
+    .pipe($.size({title: 'images'}));
+});
+
+// copy fonts
 gulp.task('fonts', function() {
   gulp
-    .src([])
-    .pipe($.changed('./_build/fonts'))
-    .pipe(gulp.dest('./_build/fonts'));
-});
-
-// start webserver
-gulp.task('server', function(done) {
-  return browserSync({
-    server: {
-      baseDir: './src/'
-    }
-  }, done);
-});
-
-// start webserver from _build folder to check how it will look in production
-gulp.task('server:build', function(done) {
-  return browserSync({
-    server: {
-      baseDir: './_build/'
-    }
-  }, done);
+    .src([config.src + '/fonts/**/*'])
+    .pipe(gulp.dest(config.dist + '/fonts'))
+    .pipe($.size({title: 'fonts'}));
 });
 
 // delete build folder
-gulp.task('clean:build', function () {
+gulp.task('clean', function() {
   del([
-    './_build/'
-  ]);
+    config.tmp,
+    config.dist
+  ], {
+    dot: true
+  });
 });
 
 // SASS task, will run when any SCSS files change & BrowserSync
 // will auto-update browsers
 gulp.task('sass', function() {
-  return gulp.src('./src/sass/main.scss')
-    .pipe($.sourcemaps.init())
+  return gulp
+    .src(config.src + '/sass/main.scss')
     .pipe($.sass({
-      outputStyle: 'expanded',
-      errLogToConsole: true
-    }))
-    .pipe($.sourcemaps.write('/'))
-    .pipe(gulp.dest('./src/css'))
-    .pipe(reload({
-      stream: true
-    }))
-    .pipe($.notify({
-      message: 'Styles task complete'
-    }));
+      outputStyle: 'expanded'
+    }).on('error', $.sass.logError))
+    .pipe(gulp.dest(config.tmp + '/styles'))
+    .pipe($.size({title: 'sass'}))
+    .pipe(browserSync.stream());
 });
 
 // SASS Build task
 gulp.task('sass:build', function() {
-  return gulp.src('./src/sass/main.scss')
-    .pipe($.sourcemaps.init())
+  return gulp
+    .src(config.src + '/sass/**/*.scss')
+    // .pipe($.sourcemaps.init())
     .pipe($.sass({
-      outputStyle: 'compact'
+      outputStyle: 'compressed'
+    }).on('error', $.sass.logError))
+    .pipe($.cssnano({
+      autoprefixer: {browsers: config.autoprefixer, add: true},
+      safe: true
     }))
-    .pipe($.autoprefixer('last 2 versions',
-      'safari 6',
-      'ie 9',
-      'opera 12.1',
-      'ios 6',
-      'android 4'
-    ))
-    .pipe($.uncss({
-      html: ['./src/index.html'],
-      ignore: [
-        '.index',
-        '.slick'
-      ]
-    }))
-    .pipe($.minifyCss({
-      keepBreaks: true,
-      aggressiveMerging: false,
-      advanced: false
-    }))
-    .pipe($.rename({suffix: '.min'}))
-    .pipe($.sourcemaps.write('/'))
-    .pipe(gulp.dest('_build/css'));
+    // .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest(config.tmp + '/styles'))
+    .pipe($.size({title: 'sass'}));
 });
 
-// index.html build
-// script/css concatenation
-gulp.task('usemin', function() {
-  var baseUrl = args.base_url ? args.base_url : '/';
+gulp.task('scripts', function() {
+  return gulp
+    .src([
+      config.src + '/app/**/*.js',
+      '!**/test/**/*'
+    ]);
+});
 
-  return gulp.src('./src/index.html')
-    // add templates path
+// Move all script files in the .temp is required by usemin
+// in order to find all the source scripts in one place
+gulp.task('copy:scripts', function() {
+  gulp
+    .src([config.src + '/app/**/*'])
+    .pipe(gulp.dest(config.tmp + '/app'));
+});
+
+gulp.task('fonts', function() {
+  gulp
+    .src(['bower_components/font-awesome/fonts/**/*'])
+    .pipe(gulp.dest(config.dist + '/fonts'));
+});
+
+// Copy the root files from your src folder inside your dist one
+gulp.task('copy:root', function() {
+  gulp
+    .src([
+      config.src + '/.htaccess',
+      config.src + '/404.html',
+      config.src + '/browserconfig.xml',
+      config.src + '/favicon.ico',
+      config.src + '/manifest.json',
+      config.src + '/manifest.webapp',
+      config.src + '/robots.txt'
+    ], {
+      dot: true
+    })
+    .pipe(gulp.dest(config.dist))
+    .pipe($.size({title: 'copy'}));
+});
+
+gulp.task('wiredep', function() {
+  return gulp
+  .src(config.src + '/index.html')
+  .pipe(wiredep())
+  .pipe(gulp.dest(config.src));
+});
+
+gulp.task('usemin', ['wiredep'], function() {
+  return gulp
+    .src(config.src + '/index.html')
+    .pipe(gulp.dest(config.dist))
     .pipe($.htmlReplace({
-        'templates': '<script type="text/javascript" src="js/templates.js"></script>',
-        'base_url': '<base href="' + baseUrl + '">'
+      baseUrl: '<base href="' + baseUrl + '">',
+      templates: '<script src="app/templates.js"></script>'
     }))
+    .pipe(gulp.dest(config.dist))
     .pipe($.usemin({
-      css: [$.minifyCss()],
-      angularlibs: [$.uglify()],
-      appcomponents: [$.uglify()],
-      mainapp: [$.uglify()]
+      css: ['concat', $.cssnano({
+        autoprefixer: {browsers: config.autoprefixer, add: true}
+      })],
+      main: [$.uglify(), 'concat']
     }))
-    .pipe(gulp.dest('./_build/'));
+    .pipe(gulp.dest(config.dist));
 });
 
-// make templateCache from all HTML files
+// minify HTML
+gulp.task('htmlmin', function() {
+  return gulp
+    .src(config.dist + '/index.html')
+    .pipe($.htmlmin({
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      minifyJS: true,
+      minifyCSS: true,
+      removeTagWhitespace: true,
+      collapseWhitespace: true
+    }))
+    .pipe(gulp.dest(config.dist));
+});
+
+// make a templateCache module from all HTML files
 gulp.task('templates', function() {
-  return gulp.src([
-    './src/app/**/*.html'
-    // './src/**/*.html',
-    // '!./src/bower_components/**/*.*'
-  ])
-    .pipe($.minifyHtml())
+  return gulp
+    .src('src/app/**/*.html')
+    .pipe($.htmlmin({
+      collapseWhitespace: true
+    }))
     .pipe($.angularTemplatecache({
       module: 'app',
       root: 'app'
     }))
-    .pipe(gulp.dest('_build/js'));
+    .pipe(gulp.dest('.tmp/app'));
 });
 
-// reload all Browsers
-gulp.task('bs-reload', function() {
-  browserSync.reload();
-});
-
-// default task to be run with `gulp` command
-// this default task will run BrowserSync & then use Gulp to watch files.
-// when a file is changed, an event is emitted to BrowserSync with the filepath.
-gulp.task('default', ['browser-sync', 'sass'], function() {
-  gulp.watch('./src/css/*.css', function(file) {
-    if (file.type === "changed") {
-      reload(file.path);
+/**
+ * This task will build your source project in a browser & then use Gulp to watch files.
+ * When a file is changed, The browser page is automatically refreshed.
+ */
+gulp.task('serve', ['clean'], function() {
+  runSequence(
+    'start:server',
+    'sass',
+    'wiredep',
+    function() {
+      gulp.watch('src/**/*.html').on('change', browserSync.reload);
+      gulp.watch('src/app/**/*.js').on('change', browserSync.reload);
+      gulp.watch('src/sass/**/*.scss', ['sass']);
     }
-  });
-  gulp.watch(['./src/index.html', './src/app/**/*.html'], ['bs-reload']);
-  gulp.watch('./src/app/**/*.js', ['bs-reload']);
-  gulp.watch('./src/sass/**/*.scss', ['sass']);
+  );
 });
 
-
 /**
- * build task
+ * Build a production version
  *
- * gulp build
+ * @param  {Function} cb    Call back function
+ * @param  {String}   base  Set a default base url.
  */
-gulp.task('build', function(callback) {
+gulp.task('build', ['clean'], function(cb) {
   runSequence(
-    'clean:build',
-    'sass:build',
-    'images',
-    'templates',
+    ['images', 'templates', 'copy:scripts', 'copy:root'],
+    ['sass:build', 'fonts'],
     'usemin',
-    callback);
+    'htmlmin',
+    cb
+  );
 });
+
+gulp.task('default', ['build']);
 
 /**
- * Deploy to Live
- *
- * use with the followinf syntax:
- * gulp deploy --remote www.app.com --remote_path /public_html/angular-boilerplate/ --base_url / --user username --password password
- *
- * where username and password are the ftp credentials
+ * Run tests once and exit
  */
-gulp.task('deploy', function(callback) {
-  runSequence(
-    'clean:build',
-    'sass:build',
-    'images',
-    'templates',
-    'usemin',
-    'send',
-    callback);
-});
-
-gulp.task( 'send', function( cb ) {
-  var remotePath = args.remote_path,
-      conn = ftp.create({
-      host: args.remote,
-      user: args.user,
-      password: args.password,
-      log: gutil.log
-      // parallel: 25,
-      // debug: true,
-      // idleTimeout: 200,
-      // maxConnections: 30,
-      // reload: true,
-    });
-
-  var globs = [
-      '_build/**/*'
-    ];
-
-    return gulp.src( globs, {base: './_build/', buffer: true } )
-      // .pipe( conn.differentSize( remotePath ) )
-      .pipe( conn.newer( remotePath ) )
-      .pipe( conn.dest( remotePath ) );
-  //
-  //   conn.rmdir( remotePath, function ( err ) {
-  //     if ( err ) {
-  //       // If the remote directory doesn't exisits, do nothing and continue with the upload
-  //       // return cb( err );
-  //     }
-  //     gulp.src(globs, { base: './dist/', buffer: false } )
-  //       .pipe( conn.newer( remotePath ) )
-  //       .pipe( conn.dest( remotePath ) );
-  // });
-  //
-});
-
-
-/**
- * Run test once and exit
- */
-gulp.task( 'test', function (done) {
+gulp.task('test', function(done) {
   new Server({
-    configFile: __dirname + '/karma.conf.js',
+    configFile: path.join(__dirname, '/karma.conf.js'),
     singleRun: true
   }, done).start();
 });

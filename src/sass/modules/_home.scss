@@ -1,30 +1,3 @@
-.playlist {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-
-  li {
-    padding: 10px;
-
-    .box {
-      box-shadow: 0 2px 4px rgba(0,0,0,.3);
-      height: 250px;
-      padding: 15px;
-      text-align: center;
-
-      @include transition(all .3s $ease-in-out-quad);
-
-      a {
-        color: $black;
-      }
-
-      .title a {
-        font-size: 21px;
-        color: $primary-color-1;
-      }
-    }
-    .box:hover {
-      box-shadow: 0 4px 8px rgba(0,0,0,.4);
-    }
-  }
+h1.product-name {
+  text-transform: capitalize;
 }

@@ -8,17 +8,12 @@
 *
 * @license MIT  https://andreasonny.mit-license.org/@2016/
 */
-(function() {
-  'use strict';
+'use strict';
 
-  angular
-    .module('app')
-    .directive('pageFooter', pageFooter);
+describe('test page-footer directive', function() {
+  beforeEach(module('app'));
 
-  function pageFooter() {
-    return {
-      restrict: 'E',
-      templateUrl: 'app/page-footer/page-footer.html'
-    };
-  }
-})();
+  it('should render the page-footer module', function() {
+    expect('true').toBe('true');
+  });
+});
