@@ -64,35 +64,16 @@ gulp server
 gulp server:build
 ```
 
+## Contributing
+
+1.  Fork it!
+2.  Create your feature branch: `git checkout -b my-new-feature`
+3.  Commit your changes: `git commit -m 'Add some feature'`
+4.  Push to the branch: `git push origin my-new-feature`
+5.  Submit a pull request :D
+
 ## Changelog
 
-### 1.2.0
-
-*   Replacing Material Design Lite with Angular Material
-*   Better Gulp
-*   Removing JSHint in favour of ESLint
-*   Karma improved for Unit testing
-*   General restyling and better Web Application support
-
-2016.07.08
-
-### 1.0.1
-
-*   Twitter Bootstrap and JQuery removed and implemented Bourbon with Neat
-*   support for web app
-*   file structure improved according to the JohnPapa styleguide
-*   icons
-*   robots.txt
-*   manifest.webapp for web app support
-*   gulp file updated
-*   Support for Google Analytics in index.html
-
-2015.12.28
-
-### 1.0.0
-
-*   initial release
-
-2015.10.17
+Changelog available [here][changelog]
 
 [angular_logo]: https://angularjs.org/img/AngularJS-large.png
