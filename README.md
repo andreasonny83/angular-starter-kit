@@ -77,3 +77,4 @@ gulp server:build
 Changelog available [here][changelog]
 
 [angular_logo]: https://angularjs.org/img/AngularJS-large.png
+[changelog]: https://github.com/andreasonny83/angular-starter-kit/blob/master/CHANGELOG.md
