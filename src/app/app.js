@@ -52,6 +52,6 @@
    * Run once the App is ready
    */
   function run() {
-    console.log('App ready!');
+    // console.log('App ready!');
   }
 })();
