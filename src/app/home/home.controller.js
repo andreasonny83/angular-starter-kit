@@ -20,9 +20,8 @@
     vm.toast = $mdToast;
 
     $mdToast.show(
-      $mdToast.simple().textContent(
-        'Welcome to Angular Starter Kit!'
-      ));
+      $mdToast.simple()
+        .textContent('Welcome to Angular Starter Kit!'));
 
     this._init();
   }
@@ -39,9 +38,9 @@
     // If the form is not validated, show an error message
     if (!isValid) {
       vm.toast.show(
-        vm.toast.simple().textContent(
-          'You must fill all the required information first.'
-        ));
+        vm.toast.simple()
+          .textContent('You must fill all the required information first.')
+          .hideDelay(0));
 
       return;
     }

@@ -1,4 +1,5 @@
 <md-tabs md-dynamic-height
+          class="md-tabs"
           md-border-bottom
           tabindex="-1"
           ng-show="homeCtrl.pageReady"
@@ -23,17 +24,21 @@
         <md-card-content>
           <md-input-container class="md-block" flex-gt-sm>
             <label>Your name*</label>
-            <input ng-model="homeCtrl.user.name" required="" tabindex="1">
+            <input ng-model="homeCtrl.user.name"
+                   required="" tabindex="1">
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
             <label>Title</label>
-            <input ng-model="homeCtrl.user.title" tabindex="2">
+            <input ng-model="homeCtrl.user.title"
+                   tabindex="2">
           </md-input-container>
         </md-card-content>
 
         <md-card-actions layout="row" layout-align="end center">
-          <md-button ng-click="homeCtrl.next(form.$valid)">
+          <md-button
+            ng-click="homeCtrl.next(form.$valid)"
+            class="step1__next">
             Next
           </md-button>
         </md-card-actions>

@@ -32,8 +32,23 @@ var args = require('minimist')(process.argv.slice(2));
 // for more information: https://docs.angularjs.org/guide/$location
 var baseUrl = args.base || '/';
 
-gulp.task('start:server', function() {
+// delete build folder
+gulp.task('clean', function(done) {
+  del([
+    config.tmp,
+    config.dist
+  ], {
+    dot: true
+  }).then(function(paths) {
+    console.log('Files and folders that would be deleted:\n', paths.join('\n'));
+    done();
+  });
+});
+
+gulp.task('server:dev', function() {
   browserSync.init({
+    port: 8000,
+    open: false,
     server: {
       baseDir: [config.src, config.tmp],
       routes: {
@@ -49,8 +64,10 @@ gulp.task('start:server', function() {
   });
 });
 
-gulp.task('build:serve', function() {
+gulp.task('server:dist', function() {
   browserSync.init({
+    port: 8000,
+    open: false,
     server: {
       baseDir: config.dist,
       middleware: [
@@ -89,16 +106,6 @@ gulp.task('fonts', function() {
     .src([config.src + '/fonts/**/*'])
     .pipe(gulp.dest(config.dist + '/fonts'))
     .pipe($.size({title: 'fonts'}));
-});
-
-// delete build folder
-gulp.task('clean', function() {
-  del([
-    config.tmp,
-    config.dist
-  ], {
-    dot: true
-  });
 });
 
 // SASS task, will run when any SCSS files change & BrowserSync
@@ -226,19 +233,36 @@ gulp.task('templates', function() {
 });
 
 /**
+ * watch for file changes
+ */
+gulp.task('watch', function() {
+  gulp.watch('src/**/*.html').on('change', browserSync.reload);
+  gulp.watch('src/app/**/*.js').on('change', browserSync.reload);
+  gulp.watch('src/sass/**/*.scss', ['sass']);
+});
+
+/**
  * This task will build your source project in a browser & then use Gulp to watch files.
  * When a file is changed, The browser page is automatically refreshed.
  */
-gulp.task('serve', ['clean'], function() {
+gulp.task('serve', function() {
   runSequence(
-    'start:server',
+    'clean',
     'sass',
     'wiredep',
-    function() {
-      gulp.watch('src/**/*.html').on('change', browserSync.reload);
-      gulp.watch('src/app/**/*.js').on('change', browserSync.reload);
-      gulp.watch('src/sass/**/*.scss', ['sass']);
-    }
+    'server:dev',
+    'watch'
+  );
+});
+
+/**
+ * This task will build your source project in a browser & then use Gulp to watch files.
+ * When a file is changed, The browser page is automatically refreshed.
+ */
+gulp.task('serve:dist', function() {
+  runSequence(
+    'build',
+    'server:dist'
   );
 });
 
@@ -248,8 +272,9 @@ gulp.task('serve', ['clean'], function() {
  * @param  {Function} cb    Call back function
  * @param  {String}   base  Set a default base url.
  */
-gulp.task('build', ['clean'], function(cb) {
+gulp.task('build', function(cb) {
   runSequence(
+    'clean',
     ['images', 'templates', 'copy:scripts', 'copy:root'],
     ['sass:build', 'fonts'],
     'usemin',
@@ -257,8 +282,6 @@ gulp.task('build', ['clean'], function(cb) {
     cb
   );
 });
-
-gulp.task('default', ['build']);
 
 /**
  * Run tests once and exit
@@ -269,3 +292,5 @@ gulp.task('test', function(done) {
     singleRun: true
   }, done).start();
 });
+
+gulp.task('default', ['build']);
