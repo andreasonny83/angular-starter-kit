@@ -1,5 +1,14 @@
 # Angular Starter Kit Changelog
 
+## 1.3.1 - 2016.07.10
+
+*   end-to-end tests introduced with Protractor
+*   demo e2e scenario
+*   Travis task updated
+*   Gulp tasks improved and refactored
+*   karma-coverage and Istanbul introduced
+*   documentation updated
+
 ## 1.2.1 - 2016.07.09
 
 *   favicon bug fixed
