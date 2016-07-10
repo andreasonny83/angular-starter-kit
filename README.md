@@ -48,15 +48,20 @@ npm install
 This will create both a `node_modules` and `bower_components` folder inside
 your local directory
 
-## Watch files
+## Run the Application
+
+There is already a preconfigured web server for this application.
+The simplest way to start this server is:
 
 ```sh
 npm start
 ```
 
-Trigger your browser to open pointing to your app project.
-All SCSS/HTML/JS will be watched for changes and injected into browser thanks
-to BrowserSync.
+Now browse to the app url available at
+[http://localhost:8000](http://localhost:8000) to see your application running.
+
+This task will also watch for any file change to your project's files and
+update the browser with the new changes using BrowserSync and Gulp.
 
 ## Build a production version
 
@@ -80,8 +85,11 @@ This will perform the following tasks:
 npm run serve:dist
 ```
 
-This will compile your project in distribution mode and will serve that in
-your browser
+This will compile your project in distribution mode and will trigger a
+web server to listen to your generated `dist` folder.
+
+Open a browser and navigating to [http://localhost:8000](http://localhost:8000)
+to see the rendered application.  
 
 ## Unit tests
 
@@ -105,13 +113,32 @@ npm run test-single-run
 Either way, all the reports will be stored inside a generated `test_out` folder
 and a `coverage` for the unit test coverage using [Istanbul][istanbul-url]
 
-## E2E tests
+## End to end testing
+
+The Angular Starter Kit app comes with end-to-end tests written in Jasmine.
+These tests are run with the [Protractor][protractor-url]
+End-to-End test runner.
+
+Your web server needs to be serving up the application,
+so that Protractor can interact with it.
+
+In order to start running your end-to-end tests,
+first start your web server with:
+
+```bash
+npm start
+```
+
+Now you can run the end-to-end tests, from another terminal instance,
+using the supplied `npm` script:
 
 ```bash
 npm run protractor
 ```
 
 ## Contributing
+
+We really appreciate your collaborations and feedbacks!
 
 1.  Fork it!
 2.  Create your feature branch: `git checkout -b my-new-feature`
@@ -134,4 +161,5 @@ Changelog available [here][changelog]
 [gulp]: https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md
 [bower]: https://bower.io/#install-bower
 [istanbul-url]: https://github.com/gotwarlost/istanbul
+[protractor-url]:http://www.protractortest.org
 [changelog]: https://github.com/andreasonny83/angular-starter-kit/blob/master/CHANGELOG.md

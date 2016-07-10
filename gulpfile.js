@@ -33,17 +33,22 @@ var args = require('minimist')(process.argv.slice(2));
 var baseUrl = args.base || '/';
 
 // delete build folder
-gulp.task('clean', function() {
+gulp.task('clean', function(done) {
   del([
     config.tmp,
     config.dist
   ], {
     dot: true
+  }).then(function(paths) {
+    console.log('Files and folders that would be deleted:\n', paths.join('\n'));
+    done();
   });
 });
 
 gulp.task('server:dev', function() {
   browserSync.init({
+    port: 8000,
+    open: false,
     server: {
       baseDir: [config.src, config.tmp],
       routes: {
@@ -61,6 +66,8 @@ gulp.task('server:dev', function() {
 
 gulp.task('server:dist', function() {
   browserSync.init({
+    port: 8000,
+    open: false,
     server: {
       baseDir: config.dist,
       middleware: [

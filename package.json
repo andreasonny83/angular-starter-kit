@@ -53,25 +53,25 @@
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js --single-run",
     "update-webdriver": "webdriver-manager update",
-
     "prestartserver": "npm run update-webdriver && npm run build",
     "startserver": "http-server -a localhost -p 8000 -c-1 ./dist > /dev/null &",
-
     "preprotractor": "npm run update-webdriver",
     "protractor": "protractor protractor.conf.js",
-
     "build": "gulp build",
     "serve:dist": "gulp serve:dist"
   },
   "eslintConfig": {
-    "extends": "google",
+    "extends": [
+      "google"
+    ],
     "globals": {
       "angular": true,
       "inject": true
     },
     "env": {
       "browser": true,
-      "jasmine": true
+      "jasmine": true,
+      "protractor": true
     }
   }
 }
