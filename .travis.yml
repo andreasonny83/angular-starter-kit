@@ -4,6 +4,3 @@ node_js:
   - '0.12'
 before_install:
  - npm install -g bower
- - npm install -g gulp
-script:
-  - npm run test-single-run
