@@ -30,9 +30,11 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.4",
     "gulp-usemin": "^0.3.23",
+    "istanbul": "^0.4.4",
     "jasmine-core": "^2.4.1",
     "karma": "^1.1.1",
     "karma-jasmine": "^1.0.2",
+    "karma-junit-reporter": "^1.1.0",
     "karma-ng-html2js-preprocessor": "^1.0.0",
     "karma-phantomjs-launcher": "^1.0.1",
     "minimist": "^1.2.0",
@@ -44,9 +46,15 @@
     "node": ">=0.12"
   },
   "scripts": {
+    "postinstall": "bower install",
     "start": "gulp serve",
-    "build": "gulp build",
-    "test": "gulp test"
+    "test": "karma start karma.conf.js",
+    "test-single-run": "karma start karma.conf.js --single-run",
+    "preupdate-webdriver": "npm install",
+    "update-webdriver": "webdriver-manager update",
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "protractor e2e-tests/protractor.conf.js",
+    "build": "gulp build"
   },
   "eslintConfig": {
     "extends": "google",

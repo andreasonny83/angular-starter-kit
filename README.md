@@ -12,6 +12,15 @@
 *   Minimal CSS styling of the view
 *   Gulp watch, build and local server tasks
 *   Minified CSS and JS build files
+*   Unit tests
+*   E2E tests covered by Protractor
+*   Istanbul code coverage
+
+## Prerequisites
+
+We assume you've already installed [NodeJS][nodejs], [Gulp][gulp] and
+[Bower][bower] on your machine, if not,
+please follow the installation documentation from the official websites.
 
 ## Download
 
@@ -24,39 +33,34 @@ git clone https://github.com/andreasonny83/angular-starter-kit.git
 Install all `npm` and `bower` dependencies with:
 
 ```sh
-npm install && bower install
+npm install
 ```
 
 ## Watch files
 
-All SCSS/HTML will be watched for changes and injected into browser thanks
-to BrowserSync
-
 ```sh
-gulp
+npm start
 ```
 
-## Build production version
+Trigger your browser to open pointing to your app project.
+All SCSS/HTML/JS will be watched for changes and injected into browser thanks
+to BrowserSync.
+
+## Build a production version
 
 ```sh
-gulp build
+npm run build
 ```
 
 This will perform the following tasks:
 
-*   clean `dist` folder
-*   compile SASS files, minify and uncss compiled css
+*   clean the `.tmp` and `dist` folder
+*   compile SASS files, minify and uncss the compiled css
 *   copy and optimize images
 *   minify and copy all HTML files into $templateCache
 *   build index.html
 *   minify and copy all JS files
-*   copy fonts
-
-## Start webserver without watch task
-
-```bash
-gulp server
-```
+*   copy fonts, if any
 
 ## Serve the distribution folder
 
@@ -77,4 +81,7 @@ gulp server:build
 Changelog available [here][changelog]
 
 [angular_logo]: https://angularjs.org/img/AngularJS-large.png
+[nodejs]: https://nodejs.org/
+[gulp]: https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md
+[bower]: https://bower.io/#install-bower
 [changelog]: https://github.com/andreasonny83/angular-starter-kit/blob/master/CHANGELOG.md
