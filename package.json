@@ -1,7 +1,7 @@
 {
   "name": "angular-starter-kit",
   "description": "Starter Kit for Angular 1.5+ projects",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Andrea SonnY <andreasonny83@gmail.com>",
   "repository": {
     "type": "git",
@@ -11,7 +11,6 @@
     "url": "https://github.com/andreasonny83/angular-starter-kit/issues"
   },
   "license": "MIT",
-  "private": true,
   "devDependencies": {
     "browser-sync": "^2.13.0",
     "connect-history-api-fallback": "^1.2.0",
@@ -33,6 +32,7 @@
     "istanbul": "^0.4.4",
     "jasmine-core": "^2.4.1",
     "karma": "^1.1.1",
+    "karma-coverage": "^1.1.0",
     "karma-jasmine": "^1.0.2",
     "karma-junit-reporter": "^1.1.0",
     "karma-ng-html2js-preprocessor": "^1.0.0",
@@ -54,7 +54,8 @@
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
     "protractor": "protractor e2e-tests/protractor.conf.js",
-    "build": "gulp build"
+    "build": "gulp build",
+    "serve:dist": "gulp serve:dist"
   },
   "eslintConfig": {
     "extends": "google",

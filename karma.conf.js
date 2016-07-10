@@ -29,7 +29,6 @@ module.exports = function(config) {
       'bower_components/angular-messages/angular-messages.js',
       'bower_components/angular-material/angular-material.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'src/app/app.js',
       'src/app/**/*.js',
       'src/app/**/*.html'
     ],
@@ -41,7 +40,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/app/**/*.html': ['ng-html2js']
+      'src/app/**/*.html': 'ng-html2js',
+      'src/**/*.js': 'coverage'
     },
 
     ngHtml2JsPreprocessor: {
@@ -54,7 +54,8 @@ module.exports = function(config) {
       'karma-phantomjs-launcher',
       'karma-jasmine',
       'karma-ng-html2js-preprocessor',
-      'karma-junit-reporter'
+      'karma-junit-reporter',
+      'karma-coverage'
     ],
 
     // test results reporter to use
@@ -62,8 +63,15 @@ module.exports = function(config) {
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: [
       'progress',
-      'junit'
+      'junit',
+      'coverage'
     ],
+
+    // Istanbul code coverage
+    coverageReporter: {
+      type: 'html',
+      dir: 'coverage/'
+    },
 
     // junit configuration
     junitReporter: {
