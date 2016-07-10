@@ -2,6 +2,8 @@
 
 # Angular Starter Kit
 
+[![Join the chat at https://gitter.im/andreasonny83/angular-starter-kit](https://badges.gitter.im/andreasonny83/angular-starter-kit.svg)](https://gitter.im/andreasonny83/angular-starter-kit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 > A better way to start your new Angular app
 
 ![Angular Logo][angular_logo]
