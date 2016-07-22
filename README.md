@@ -150,6 +150,10 @@ We really appreciate your collaborations and feedbacks!
 
 Changelog available [here][changelog]
 
+## License
+
+MIT © [Andrea Sonny](https://andreasonny.mit-license.org/@2016)
+
 [angular_logo]: https://angularjs.org/img/AngularJS-large.png
 [gitter-badge]: https://badges.gitter.im/andreasonny83/angular-starter-kit.svg
 [npm-badge]: https://badge.fury.io/js/generator-mdl.svg
