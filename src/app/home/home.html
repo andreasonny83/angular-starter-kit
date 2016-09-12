@@ -96,31 +96,15 @@
           </input-stars>
 
           <h2 ng-show="homeCtrl.user.title">
-            {{homeCtrl.user.title}}
+            {{homeCtrl.user.title}} {{homeCtrl.user.name}}
           </h2>
-
-          <p>
-            {{homeCtrl.user.review}}
-          </p>
-
-          <md-input-container class="md-block"
-                              flex-gt-sm
-                              ng-hide="!homeCtrl.socialsSelected.length">
-            <h3 class="md-title">Share on:</h3>
-            <div ng-repeat="item in homeCtrl.socialsSelected">
-              <md-button class="md-raised md-primary"
-                         ng-click="homeCtrl.share(item)">
-                Share on {{item}}
-              </md-button>
-            </div>
-          </md-input-container>
         </md-card-content>
 
         <md-card-actions layout="row" layout-align="end center">
           <md-button ng-click="homeCtrl.publish()"
                      tabindex="5"
                      ng-disabled="!form.$valid">
-            Publish
+            Done
           </md-button>
         </md-card-actions>
       </md-card>

@@ -31,6 +31,8 @@
    */
   HomeController.prototype._init = function() {
     this.pageReady = true;
+
+    console.log('Home controller ready!');
   };
 
   HomeController.prototype.next = function(isValid) {

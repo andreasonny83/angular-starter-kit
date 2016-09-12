@@ -13,7 +13,7 @@
 
   angular
     .module('app', [
-      'ngRoute',
+      'ui.router',
       'ngAnimate',
       'ngMaterial'
     ])
@@ -22,8 +22,11 @@
 
   // safe dependency injection
   // this prevents minification issues
-  config.$inject = ['$routeProvider', '$locationProvider'];
-  // run.$inject = [];
+  config.$inject = [
+    '$stateProvider',
+    '$urlRouterProvider',
+    '$locationProvider'
+  ];
 
   /**
    * App routing
@@ -31,17 +34,30 @@
    * You can leave it here in the config section or take it out
    * into separate file
    *
+   * @param  {Object} $stateProvider     $stateProvider Angular service
+   * @param  {Object} $urlRouterProvider $urlRouterProvider Angular service
+   * @param  {Object} $locationProvider  $locationProvider Angular service
    */
-  function config($routeProvider, $locationProvider) {
+  function config($stateProvider, $urlRouterProvider, $locationProvider) {
+    $urlRouterProvider.otherwise('/404');
+
     // routes
-    $routeProvider
-      .when('/', {
+    $stateProvider
+      .state('app', {
+        abstract: true,
+        url: '',
+        templateUrl: 'app/main/main.html',
+        controller: 'MainController'
+      })
+      .state('app.home', {
+        url: '/',
         templateUrl: 'app/home/home.html',
         controller: 'HomeController',
         controllerAs: 'homeCtrl'
       })
-      .otherwise({
-        redirectTo: '/404'
+      .state('app.404', {
+        url: '/404',
+        templateUrl: 'app/404.html'
       });
 
     // use the HTML5 History API
@@ -52,6 +68,6 @@
    * Run once the App is ready
    */
   function run() {
-    // console.log('App ready!');
+    console.log('App ready!');
   }
 })();
