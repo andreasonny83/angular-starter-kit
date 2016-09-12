@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+  <msapplication>
+    <tile>
+      <square48x48logo src="/images/favicon.ico"/>
+      <square128x128logo src="/images/icon-128x128.png"/>
+      <square192x192logo src="/images/chrome-touch-icon-192x192.png"/>
+      <TileColor>#2F3BA2</TileColor>
+    </tile>
+  </msapplication>
+</browserconfig>

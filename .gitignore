@@ -1,0 +1,29 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# Karma test result
+test_out
+
+# Dependency directories
+node_modules
+bower_components
+
+# Optional npm cache directory
+.npm
+
+# Temporary directory used by Gulp
+.tmp
+
+# Distribution folder
+dist
