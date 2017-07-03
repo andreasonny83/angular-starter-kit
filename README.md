@@ -1,4 +1,7 @@
 # Angular Starter Kit
+> A better way to start your new Angular app
+
+![Angular Logo][angular_logo]
 
 [![Join the chat at https://gitter.im/andreasonny83/angular-starter-kit][gitter-badge]](https://gitter.im/andreasonny83/angular-starter-kit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![NPM version][npm-badge]](https://www.npmjs.com/package/angular-starter-kit)
@@ -6,24 +9,19 @@
 [![devDependency Status][dependencies-badge]](https://david-dm.org/andreasonny83/angular-starter-kit#info=devDependencies)
 [![npm][license-badge]](https://andreasonny.mit-license.org/@2016/)
 
-> A better way to start your new Angular app
-
-![Angular Logo][angular_logo]
-
 ## Features
 
-*   SASS support including sourceMaps
-*   Minimal CSS styling of the view
-*   Gulp watch, build and local server tasks
-*   Minified CSS and JS build files
-*   Unit tests
-*   E2E tests covered by Protractor
-*   Istanbul code coverage
+* SASS support including sourceMaps
+* Minimal CSS styling of the view
+* Gulp watch, build and local server tasks
+* Minified CSS and JS build files
+* Unit tests
+* E2E tests covered by Protractor
+* Istanbul code coverage
 
 ## Prerequisites
 
-We assume you've already installed [NodeJS][nodejs], [Gulp][gulp] and
-[Bower][bower] on your machine, if not,
+We assume you've already installed [NodeJS][nodejs] on your machine, if not,
 please follow the installation documentation from the official websites.
 
 ## Installation
@@ -43,6 +41,7 @@ folder, then install all the dependencies with:
 
 ```sh
 npm install
+yarn # Or using Yarn for a faster installation
 ```
 
 This will create both a `node_modules` and `bower_components` folder inside
@@ -71,13 +70,13 @@ npm run build
 
 This will perform the following tasks:
 
-*   clean the `.tmp` and `dist` folder
-*   compile SASS files, minify and uncss the compiled css
-*   copy and optimize images
-*   minify and copy all HTML files into $templateCache
-*   build index.html
-*   minify and copy all JS files
-*   copy fonts, if any
+* clean the `.tmp` and `dist` folder
+* compile SASS files, minify and uncss the compiled css
+* copy and optimize images
+* minify and copy all HTML files into $templateCache
+* build index.html
+* minify and copy all JS files
+* copy fonts, if any
 
 ## Serve the distribution folder
 
@@ -140,11 +139,11 @@ npm run protractor
 
 We really appreciate your collaborations and feedbacks!
 
-1.  Fork it!
-2.  Create your feature branch: `git checkout -b my-new-feature`
-3.  Commit your changes: `git commit -m 'Add some feature'`
-4.  Push to the branch: `git push origin my-new-feature`
-5.  Submit a pull request :D
+1. Fork it!
+1. Create your feature branch: `git checkout -b my-new-feature`
+1. Commit your changes: `git commit -m 'Add some feature'`
+1. Push to the branch: `git push origin my-new-feature`
+1. Submit a pull request :D
 
 ## Changelog
 
@@ -152,7 +151,7 @@ Changelog available [here][changelog]
 
 ## License
 
-MIT © [Andrea Sonny](https://andreasonny.mit-license.org/@2016)
+MIT © [Andrea Sonny](https://andreasonny.mit-license.org/2016-2017)
 
 [angular_logo]: https://angularjs.org/img/AngularJS-large.png
 [gitter-badge]: https://badges.gitter.im/andreasonny83/angular-starter-kit.svg
@@ -162,8 +161,6 @@ MIT © [Andrea Sonny](https://andreasonny.mit-license.org/@2016)
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [latest_release]: https://github.com/andreasonny83/angular-starter-kit/releases/latest
 [nodejs]: https://nodejs.org/
-[gulp]: https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md
-[bower]: https://bower.io/#install-bower
 [istanbul-url]: https://github.com/gotwarlost/istanbul
 [protractor-url]:http://www.protractortest.org
 [changelog]: https://github.com/andreasonny83/angular-starter-kit/blob/master/CHANGELOG.md
